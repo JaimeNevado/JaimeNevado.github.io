@@ -48,6 +48,7 @@
 
     #noButton {
       margin-left: 10px; /* Ajuste del margen izquierdo */
+      position: absolute; /* Agregado para asegurar la posición absoluta */
     }
   </style>
 </head>
@@ -60,6 +61,15 @@
   </div>
 
   <script>
+    // Posicionar al lado del botón "Sí" al cargar la página
+    window.onload = function () {
+      var siButton = document.getElementById('siButton');
+      var botonNo = document.getElementById('noButton');
+      var rect = siButton.getBoundingClientRect();
+      botonNo.style.left = rect.right + 'px';
+      botonNo.style.top = rect.top + 'px';
+    };
+
     function responder(mensaje) {
       alert(mensaje);
     }
