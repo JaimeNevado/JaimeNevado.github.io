@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Un Regalo Especial para Paola</title>
+	<style>
+		/* Fuentes y Reset Básico */
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			overflow: hidden;
+			/* Previene scroll indeseado */
+		}
+
+		/* Fondo con gradiente sutil y animado */
+		body {
+			/* Un gradiente suave inspirado en fondos de pantalla modernos */
+			background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+			background-size: 400% 400%;
+			/* Tamaño grande para la animación */
+			animation: gradientBG 15s ease infinite;
+			/* Animación del fondo */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* Animación para el gradiente del fondo */
+		@keyframes gradientBG {
+			0% {
+				background-position: 0% 50%;
+			}
+
+			50% {
+				background-position: 100% 50%;
+			}
+
+			100% {
+				background-position: 0% 50%;
+			}
+		}
+
+		/* Contenedor principal con efecto "Frosted Glass" */
+		.container {
+			background-color: rgba(255, 255, 255, 0.8);
+			/* Blanco semitransparente */
+			padding: 35px 30px;
+			border-radius: 18px;
+			/* Bordes más redondeados */
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+			/* Sombra más pronunciada */
+			text-align: center;
+			max-width: 340px;
+			width: 90%;
+			box-sizing: border-box;
+			/* Efecto desenfoque del fondo (Frosted Glass / Acrílico) */
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			/* Para Safari */
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			/* Borde sutil para definir */
+			position: relative;
+			/* Necesario para animaciones internas */
+			overflow: hidden;
+			/* Asegura que el contenido no se salga */
+		}
+
+		/* Transición suave entre secciones */
+		#login-section,
+		#content-section {
+			transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+		}
+
+		/* Estilo inicial para la sección de contenido (antes de aparecer) */
+		#content-section {
+			display: none;
+			/* Oculto por defecto */
+			opacity: 0;
+			transform: translateY(20px);
+			/* Empieza ligeramente abajo */
+		}
+
+		/* Estado visible para la sección de contenido */
+		#content-section.visible {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Estado de ocultamiento para la sección de login */
+		#login-section.hiding {
+			opacity: 0;
+			transform: translateY(-20px);
+			/* Se va hacia arriba */
+			pointer-events: none;
+			/* Evita interacción durante la transición */
+		}
+
+		/* Títulos */
+		h1,
+		h2 {
+			color: #1d1d1f;
+			/* Un negro más profundo */
+			font-weight: 600;
+			/* Ligeramente más grueso */
+			margin-bottom: 25px;
+		}
+
+		h1 {
+			font-size: 1.6em;
+		}
+
+		h2 {
+			font-size: 1.4em;
+		}
+
+		/* Input de contraseña mejorado */
+		#password-input {
+			width: 100%;
+			padding: 14px 18px;
+			margin-bottom: 18px;
+			border: 1px solid #c7c7cc;
+			/* Gris más estándar de iOS */
+			border-radius: 10px;
+			/* Bordes más suaves */
+			font-size: 1.1em;
+			box-sizing: border-box;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.7);
+			/* Ligeramente transparente */
+			color: #1d1d1f;
+			-webkit-appearance: none;
+			appearance: none;
+			transition: border-color 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		#password-input::placeholder {
+			color: #8e8e93;
+			/* Color de placeholder iOS */
+		}
+
+		#password-input:focus {
+			outline: none;
+			border-color: #007aff;
+			/* Resaltado azul al enfocar */
+			box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
+			/* Anillo de foco estilo macOS/iOS */
+		}
+
+		/* Botón de entrada */
+		#submit-button {
+			width: 100%;
+			padding: 14px 18px;
+			background-color: #007aff;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 1.1em;
+			font-weight: 600;
+			/* Más destacado */
+			cursor: pointer;
+			transition: background-color 0.2s ease, transform 0.1s ease;
+			-webkit-appearance: none;
+			appearance: none;
+		}
+
+		#submit-button:hover {
+			background-color: #005ecb;
+		}
+
+		#submit-button:active {
+			transform: scale(0.98);
+			/* Efecto de presión */
+			background-color: #004aaa;
+		}
+
+		/* Mensaje de error */
+		#error-message {
+			color: #ff3b30;
+			/* Rojo de error Apple */
+			font-size: 0.9em;
+			margin-top: 15px;
+			min-height: 1.2em;
+			opacity: 0;
+			/* Oculto inicialmente */
+			transition: opacity 0.3s ease;
+			font-weight: 500;
+		}
+
+		#error-message.visible {
+			opacity: 1;
+			/* Visible cuando hay error */
+		}
+
+		/* Imagen del regalo */
+		#gift-image {
+			max-width: 100%;
+			height: auto;
+			border-radius: 12px;
+			/* Bordes redondeados consistentes */
+			margin-top: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			/* Sombra suave para la imagen */
+			transition: transform 0.3s ease;
+			/* Transición para hover */
+		}
+
+		/* Pequeño efecto al pasar el ratón por encima de la imagen */
+		#gift-image:hover {
+			transform: scale(1.03);
+		}
+
+		/* Pequeña animación de sacudida para el contenedor en caso de error */
+		@keyframes shake {
+
+			0%,
+			100% {
+				transform: translateX(0);
+			}
+
+			10%,
+			30%,
+			50%,
+			70%,
+			90% {
+				transform: translateX(-6px);
+			}
+
+			20%,
+			40%,
+			60%,
+			80% {
+				transform: translateX(6px);
+			}
+		}
+
+		.shake-it {
+			animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container" id="main-container">
+		<!-- Sección de Login -->
+		<div id="login-section">
+			<h2>Introduce la contraseña secreta</h2>
+			<input type="password" id="password-input" placeholder="••••••">
+			<button id="submit-button">Entrar</button>
+			<p id="error-message"> </p> <!-- Espacio reservado -->
+		</div>
+
+		<!-- Sección de Contenido (Regalo) -->
+		<div id="content-section">
+			<h1>Aquí tienes tu regalo Paola</h1>
+			<img id="gift-image" src="sushi.png" alt="¡Tu regalo sorpresa!">
+		</div>
+	</div>
+
+	<script>
+		// Referencias a los elementos del DOM
+		const mainContainer = document.getElementById('main-container');
+		const loginSection = document.getElementById('login-section');
+		const contentSection = document.getElementById('content-section');
+		const passwordInput = document.getElementById('password-input');
+		const submitButton = document.getElementById('submit-button');
+		const errorMessage = document.getElementById('error-message');
+
+		// Contraseña correcta
+		const correctPassword = "050505";
+
+		// Función para verificar la contraseña
+		function checkPassword() {
+			const enteredPassword = passwordInput.value;
+
+			// Limpia errores previos y animaciones
+			errorMessage.classList.remove('visible');
+			mainContainer.classList.remove('shake-it');
+			// Pequeño delay para que la animación de sacudida pueda repetirse si fallan de nuevo
+			void mainContainer.offsetWidth; // Truco para forzar reflow y reiniciar animación CSS
+
+			if (enteredPassword === correctPassword) {
+				// Contraseña correcta: Iniciar transición
+				loginSection.classList.add('hiding');
+
+				// Esperar a que termine la animación de salida del login
+				setTimeout(() => {
+					loginSection.style.display = 'none'; // Ocultar completamente
+					contentSection.classList.add('visible'); // Mostrar contenido con animación
+					// Limpiar campo por si acaso
+					passwordInput.value = '';
+				}, 500); // 500ms coincide con la duración de la transición CSS
+
+			} else {
+				// Contraseña incorrecta: Mostrar mensaje y animación
+				errorMessage.textContent = 'Contraseña incorrecta. ¡Inténtalo de nuevo!';
+				errorMessage.classList.add('visible');
+				mainContainer.classList.add('shake-it'); // Añadir animación de sacudida
+				passwordInput.value = ''; // Limpia el campo
+				passwordInput.focus(); // Enfoca de nuevo
+			}
+		}
+
+		// Event listener para el botón
+		submitButton.addEventListener('click', checkPassword);
+
+		// Permitir entrar presionando Enter
+		passwordInput.addEventListener('keypress', function (event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				checkPassword();
+			}
+			// Ocultar mensaje de error al empezar a escribir de nuevo
+			if (errorMessage.classList.contains('visible')) {
+				errorMessage.classList.remove('visible');
+				// No es necesario limpiar el texto aquí, se hará en checkPassword
+			}
+		});
+
+		// Ocultar mensaje de error si el usuario hace clic en el input
+		passwordInput.addEventListener('focus', function () {
+			if (errorMessage.classList.contains('visible')) {
+				errorMessage.classList.remove('visible');
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>
