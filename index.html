@@ -4,7 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Un Regalo Especial para Paola</title>
+	<title>An special gift for Elaine</title>
+	<!-- Incluir canvas-confetti -->
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 	<style>
 		/* Fuentes y Reset Básico */
 		body,
@@ -68,6 +70,8 @@
 			/* Necesario para animaciones internas */
 			overflow: hidden;
 			/* Asegura que el contenido no se salga */
+			z-index: 1;
+			/* Para asegurar que el contenido del contenedor esté sobre el canvas del confeti si es necesario */
 		}
 
 		/* Transición suave entre secciones */
@@ -123,7 +127,8 @@
 		#password-input {
 			width: 100%;
 			padding: 14px 18px;
-			margin-bottom: 18px;
+			margin-bottom: 10px;
+			/* Reducido para dar espacio al botón de pista */
 			border: 1px solid #c7c7cc;
 			/* Gris más estándar de iOS */
 			border-radius: 10px;
@@ -151,6 +156,74 @@
 			box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
 			/* Anillo de foco estilo macOS/iOS */
 		}
+
+		/* Botón de pista */
+		#hint-toggle-button {
+			width: 100%;
+			padding: 10px 18px;
+			/* Un poco menos padding que el submit */
+			background-color: #6c757d;
+			/* Un gris neutral, estilo botón secundario */
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 0.95em;
+			/* Ligeramente más pequeño */
+			font-weight: 500;
+			cursor: pointer;
+			transition: background-color 0.2s ease, transform 0.1s ease;
+			-webkit-appearance: none;
+			appearance: none;
+			margin-bottom: 10px;
+			/* Espacio antes del cuadro de pista o del botón Go */
+		}
+
+		#hint-toggle-button:hover {
+			background-color: #5a6268;
+		}
+
+		#hint-toggle-button:active {
+			transform: scale(0.98);
+			background-color: #545b62;
+		}
+
+		/* Cuadro de la pista */
+		#hint-box {
+			background-color: rgba(0, 0, 0, 0.05);
+			/* Fondo muy sutil */
+			border-radius: 8px;
+			padding: 0 15px;
+			/* Padding horizontal, vertical controlado por max-height/visible */
+			font-size: 0.9em;
+			color: #333;
+			text-align: left;
+			max-height: 0;
+			/* Oculto por defecto */
+			opacity: 0;
+			/* Oculto por defecto */
+			overflow: hidden;
+			/* Para que el contenido no se muestre al estar colapsado */
+			margin-top: 0;
+			/* Sin margen superior cuando está oculto */
+			margin-bottom: 10px;
+			/* Espacio antes del botón Go */
+			transition: max-height 0.35s ease-in-out, opacity 0.35s ease-in-out, padding-top 0.35s ease-in-out, padding-bottom 0.35s ease-in-out, margin-top 0.35s ease-in-out;
+		}
+
+		#hint-box.visible {
+			max-height: 100px;
+			/* Altura suficiente para el contenido */
+			opacity: 1;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			margin-top: 5px;
+			/* Pequeño margen superior cuando es visible */
+		}
+
+		#hint-box p {
+			margin: 0;
+		}
+
 
 		/* Botón de entrada */
 		#submit-button {
@@ -250,16 +323,20 @@
 	<div class="container" id="main-container">
 		<!-- Sección de Login -->
 		<div id="login-section">
-			<h2>Introduce la contraseña secreta</h2>
+			<h2>Does anyone know the password??</h2>
 			<input type="password" id="password-input" placeholder="••••••">
-			<button id="submit-button">Entrar</button>
+			<button id="hint-toggle-button">Hint</button>
+			<div id="hint-box">
+				<p>How many daughters + granddaughters does Elaine have? (You got this Elaine!! 😜)</p>
+			</div>
+			<button id="submit-button">Go</button>
 			<p id="error-message"> </p> <!-- Espacio reservado -->
 		</div>
 
 		<!-- Sección de Contenido (Regalo) -->
 		<div id="content-section">
-			<h1>Aquí tienes tu regalo Paola</h1>
-			<img id="gift-image" src="sushi.png" alt="¡Tu regalo sorpresa!">
+			<h1>Here's your present ❤️. Hope you enjoy it!</h1>
+			<img id="gift-image" src="massage.png" alt="¡Tu regalo sorpresa!">
 		</div>
 	</div>
 
@@ -271,63 +348,95 @@
 		const passwordInput = document.getElementById('password-input');
 		const submitButton = document.getElementById('submit-button');
 		const errorMessage = document.getElementById('error-message');
+		const hintToggleButton = document.getElementById('hint-toggle-button');
+		const hintBox = document.getElementById('hint-box');
 
 		// Contraseña correcta
-		const correctPassword = "05-05-05";
+		const correctPassword = "4";
+
+		// Función para disparar confeti de forma "especial"
+		function fireSpecialConfetti() {
+			const duration = 3 * 1000; // Duración de 3 segundos
+			const animationEnd = Date.now() + duration;
+			const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 }; // zIndex alto para estar encima de todo
+
+			function randomInRange(min, max) {
+				return Math.random() * (max - min) + min;
+			}
+
+			const interval = setInterval(function () {
+				const timeLeft = animationEnd - Date.now();
+
+				if (timeLeft <= 0) {
+					return clearInterval(interval);
+				}
+
+				const particleCount = 50 * (timeLeft / duration);
+				// Disparar desde dos puntos para un efecto más amplio
+				confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+				confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+			}, 250);
+
+			// Un gran estallido inicial
+			confetti({
+				particleCount: 150,
+				spread: 100,
+				origin: { y: 0.6 },
+				zIndex: 10000
+			});
+		}
+
 
 		// Función para verificar la contraseña
 		function checkPassword() {
 			const enteredPassword = passwordInput.value;
 
-			// Limpia errores previos y animaciones
 			errorMessage.classList.remove('visible');
 			mainContainer.classList.remove('shake-it');
-			// Pequeño delay para que la animación de sacudida pueda repetirse si fallan de nuevo
-			void mainContainer.offsetWidth; // Truco para forzar reflow y reiniciar animación CSS
+			void mainContainer.offsetWidth;
 
 			if (enteredPassword === correctPassword) {
-				// Contraseña correcta: Iniciar transición
 				loginSection.classList.add('hiding');
-
-				// Esperar a que termine la animación de salida del login
 				setTimeout(() => {
-					loginSection.style.display = 'none'; // Ocultar completamente
-					contentSection.classList.add('visible'); // Mostrar contenido con animación
-					// Limpiar campo por si acaso
+					loginSection.style.display = 'none';
+					contentSection.classList.add('visible');
 					passwordInput.value = '';
-				}, 500); // 500ms coincide con la duración de la transición CSS
+					hintBox.classList.remove('visible');
+
+					// ¡Aquí es donde disparamos el confeti!
+					fireSpecialConfetti();
+
+				}, 500);
 
 			} else {
-				// Contraseña incorrecta: Mostrar mensaje y animación
 				errorMessage.textContent = 'Contraseña incorrecta. ¡Inténtalo de nuevo!';
 				errorMessage.classList.add('visible');
-				mainContainer.classList.add('shake-it'); // Añadir animación de sacudida
-				passwordInput.value = ''; // Limpia el campo
-				passwordInput.focus(); // Enfoca de nuevo
+				mainContainer.classList.add('shake-it');
+				passwordInput.value = '';
+				passwordInput.focus();
 			}
 		}
 
-		// Event listener para el botón
 		submitButton.addEventListener('click', checkPassword);
 
-		// Permitir entrar presionando Enter
 		passwordInput.addEventListener('keypress', function (event) {
 			if (event.key === 'Enter') {
 				event.preventDefault();
 				checkPassword();
 			}
-			// Ocultar mensaje de error al empezar a escribir de nuevo
 			if (errorMessage.classList.contains('visible')) {
 				errorMessage.classList.remove('visible');
-				// No es necesario limpiar el texto aquí, se hará en checkPassword
 			}
 		});
 
-		// Ocultar mensaje de error si el usuario hace clic en el input
 		passwordInput.addEventListener('focus', function () {
 			if (errorMessage.classList.contains('visible')) {
 				errorMessage.classList.remove('visible');
 			}
+		});
+
+		hintToggleButton.addEventListener('click', function () {
+			hintBox.classList.toggle('visible');
 		});
 
 	</script>
