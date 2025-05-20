@@ -1,0 +1,230 @@
+/* =========================================================== */
+/*          STYLES PARA CLASIFICACIÓN (stylesClasificacion.css) */
+/*          CORREGIDO para máxima consistencia con Amigos      */
+/* =========================================================== */
+
+
+/* --- ESTILOS GENERALES Y DEL CONTENEDOR --- */
+/* Estos deberían venir de styles.css, pero asegúrate que coincidan */
+/* main { ... } .login-text { ... } etc. */
+
+
+/* Contenedor principal de la sección - EXACTAMENTE COMO AMIGOS */
+.clasificacion-section {
+    position: relative;
+    width: 700px;
+    max-width: 100%;
+    margin: 20px auto;
+    /* Centrado horizontal si main no es flex */
+    background-color: rgba(40, 42, 54, 0.8);
+    /* Padding: SOLO vertical aquí */
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+/* --- CABECERA CON BUSCADOR - EXACTAMENTE COMO AMIGOS --- */
+.clasificacion-header {
+    /* Padding horizontal para alinear input con contenido */
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 20px;
+    /* Espacio antes de la lista */
+    box-sizing: border-box;
+}
+
+#inputBuscarUsuario {
+    /* ID diferente, pero estilo IDÉNTICO a #inputBuscarAmigo */
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #44475a;
+    background-color: #282a36;
+    color: #f8f8f2;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+#inputBuscarUsuario:focus {
+    border-color: #8be9fd;
+    box-shadow: 0 0 0 3px rgba(139, 233, 253, 0.25);
+}
+
+
+/* --- LISTA/TABLA DE CLASIFICACIÓN - Adaptado de .lista-amigos --- */
+.leaderboard {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Fondo interno */
+    border-radius: 8px;
+    /* Mismo redondeo */
+    /* Padding interno consistente con Amigos (el contenedor padre ya no tiene padding horizontal) */
+    padding: 5px 20px 10px 20px;
+    /* Margen horizontal para alinearse con el padding del header */
+    margin-left: 25px;
+    margin-right: 25px;
+    max-height: 400px;
+    /* Altura scrollable */
+    overflow-y: auto;
+    border: 1px solid #44475a;
+    /* Mismo borde */
+    box-sizing: border-box;
+}
+
+/* Scrollbar consistente */
+.leaderboard::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leaderboard::-webkit-scrollbar-track {
+    background: rgba(40, 42, 54, 0.5);
+    border-radius: 4px;
+}
+
+.leaderboard::-webkit-scrollbar-thumb {
+    background-color: #6272a4;
+    border-radius: 4px;
+    border: 2px solid rgba(40, 42, 54, 0.5);
+}
+
+.leaderboard::-webkit-scrollbar-thumb:hover {
+    background-color: #bd93f9;
+}
+
+
+/* --- ENTRADAS DE LA CLASIFICACIÓN (.entry) - Estilo base consistente --- */
+.leaderboard .entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 5px;
+    /* Padding interno consistente */
+    border-bottom: 1px solid #44475a;
+    /* Separador consistente */
+    transition: background-color 0.2s ease;
+    /* Hover consistente */
+    gap: 15px;
+    /* Espacio entre columnas */
+}
+
+.leaderboard .entry:last-child {
+    border-bottom: none;
+}
+
+.leaderboard .entry:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Hover consistente */
+}
+
+/* --- Spans dentro de .entry (Ajuste para 3 columnas) --- */
+.leaderboard .entry span {
+    font-size: 1em;
+    color: #f0f0f0;
+    white-space: nowrap;
+}
+
+/* Columna 1: Rank (#) */
+.leaderboard .entry span:nth-child(1) {
+    flex-basis: 40px;
+    /* Un poco menos espacio fijo */
+    flex-shrink: 0;
+    text-align: left;
+    color: #bd93f9;
+    /* Morado */
+    font-weight: bold;
+}
+
+/* Columna 2: Username */
+.leaderboard .entry span:nth-child(2) {
+    flex-grow: 1;
+    /* Ocupa el espacio restante */
+    text-align: left;
+    font-weight: 500;
+    /* Igual que nombre amigo */
+    overflow: hidden;
+    /* Mantenemos por si acaso */
+    text-overflow: ellipsis;
+    /* Mantenemos por si acaso */
+    /* Quitar flex-basis si interfiere con flex-grow */
+}
+
+/* Columna 3: Level */
+.leaderboard .entry span:nth-child(3) {
+    flex-basis: 90px;
+    /* Un poco menos espacio fijo */
+    flex-shrink: 0;
+    text-align: right;
+    color: #50fa7b;
+    /* Verde */
+    font-size: 0.95em;
+}
+
+/* --- MENSAJE "NO RESULTADOS" (Consistente) --- */
+.no-results-message {
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #44475a;
+    margin-top: 10px;
+}
+
+/* Asegura que las entradas estén alineadas correctamente */
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  border-bottom: 1px solid #333;
+  font-size: 1rem;
+  color: #fff;
+  background-color: transparent;
+}
+
+/* Evita margen izquierdo excesivo del <ol> */
+#listaClasificacion {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Posición izquierda */
+.entry .posicion {
+  width: 50px;
+  color: #00aaff;
+  flex-shrink: 0;
+}
+
+/* Nombre centrado */
+.entry .usuario {
+  flex: 1;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+/* Nivel a la derecha */
+.entry .nivel {
+  text-align: right;
+  min-width: 80px;
+  color: #3cff61;
+}
+
+/* Accesibilidad visual */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

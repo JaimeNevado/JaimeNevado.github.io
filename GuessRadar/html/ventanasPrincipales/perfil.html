@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess Radar - Perfil</title>
+  <link rel="stylesheet" href="../../styles/styles.css">
+  <link rel="stylesheet" href="../../styles/stylesPerfil.css">
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <a href="../ventanasPrincipales/index.html">
+      <img src="../../images/logo.png" alt="Guess Radar Logo" />
+    </a>
+  </div>
+
+  <!-- Botón del menú hamburguesa -->
+  <button class="menu-toggle" aria-label="Abrir menú de navegación">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <li><a href="../ventanasPrincipales/juegoPrincipal.html">JUGAR</a></li>
+      <li><a href="../ventanasPrincipales/desafios.html">DESAFÍOS</a></li>
+      <li><a href="../ventanasPrincipales/galeria.html">GALERÍA</a></li>
+      <li><a href="../ventanasPrincipales/clasificacion.html">CLASIFICACIÓN</a></li>
+      <li><a href="../ventanasPrincipales/amigos.html">AMIGOS</a></li>
+      <li id="estadoSesion"></li>
+    </ul>
+  </nav>
+</header>
+
+  <div class="home-icon">
+    <a href="../ventanasPrincipales/index.html">
+      <img src="../../images/home.png" alt="Home Icon" />
+    </a>
+  </div>
+
+  <div class="config-menu-container">
+    <img src="../../images/configuración.png" alt="Configuración" class="config-icon" onclick="toggleMenu()" />
+    <div class="config-dropdown" id="configDropdown">
+      <a href="../ventanasPrincipales/soporte.html">Soporte</a>
+      <a href="../ventanasPrincipales/opciones.html">Opciones</a>
+      <a href="../ventanasPrincipales/login.html" id="cerrarSesionLinkHeader">Cerrar Sesión</a>
+      <!-- Cambiado id para evitar duplicados si mantienes el botón de abajo -->
+    </div>
+  </div>
+
+  <main>
+    <div class="background">
+      <h1 class="title">PERFIL</h1>
+
+      <div class="profile-container">
+
+        <!-- Tarjeta 1: Foto de perfil y Nombre -->
+        <div class="profile-card profile-header-card">
+          <div class="profile-picture-area">
+            <img id="fotoPerfil" src="../../images/perfil/fotoPerfil.png" alt="Foto de perfil">
+            <input type="file" id="inputFotoPerfil" accept="image/*" style="display: none;">
+            <button onclick="document.getElementById('inputFotoPerfil').click();">Cambiar Foto</button>
+            <!-- Script para cambiar foto necesitará ser actualizado si usas 'cambiarFoto()' -->
+          </div>
+          <div class="profile-info-area">
+            <h2 id="nombreUsuario">Nombre de Usuario</h2> <!-- Puedes cargar esto dinámicamente -->
+            <p><em>Foto de perfil</em></p>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Avión Favorito -->
+        <div class="profile-card favorite-plane-card">
+          <h3>Mi avión favorito</h3>
+          <select id="avionFavorito">
+            <option disabled selected>Selecciona un avión</option>
+            <option>Boeing 747</option>
+            <option>Airbus A380</option>
+            <option>Concorde</option>
+            <option>F-22 Raptor</option>
+            <option>F-16 Falcon</option>
+            <option>Cessna 172</option>
+            <option>Lockheed SR-71</option>
+            <option>Boeing 737</option>
+            <option>Airbus A320</option>
+            <option>Antonov An-225</option>
+            <option>Douglas DC-3</option>
+            <option>Spitfire</option>
+            <option>Messerschmitt Bf 109</option>
+            <option>Lockheed C-130</option>
+            <option>Mig-29 Fulcrum</option>
+          </select>
+          <img id="imagenAvionFavorito" src="../../images/perfil/noPlaneSeleccion.png" alt="Avión favorito">
+        </div>
+
+        <!-- Tarjeta 3: Estadísticas -->
+        <div class="profile-card stats-card">
+          <h3>Estadísticas</h3>
+          <ul class="stats">
+            <li>Partidas jugadas: <span id="partidas">42</span></li>
+            <li>Aciertos: <span id="aciertos">32</span></li>
+            <li>Nivel: <span id="nivel">5</span></li>
+          </ul>
+        </div>
+        
+        <!-- Botón Cerrar Sesión (si lo quieres mantener aquí además del menú de config) -->
+        <div class="profile-card logout-card">
+            <button id="cerrarSesionBtnMain">Cerrar Sesión</button>
+        </div>
+
+      </div> <!-- Fin de profile-container -->
+    </div> <!-- Fin de background -->
+  </main>
+
+  <script>
+    // Asegúrate que la función cambiarFoto() exista o adapta el botón "Cambiar Foto".
+    // Por ejemplo, para que el botón "Cambiar Foto" active el input file:
+    // (ya lo he puesto inline en el botón, pero si tienes una función compleja 'cambiarFoto' la necesitarás)
+    // function cambiarFoto() {
+    //   document.getElementById('inputFotoPerfil').click();
+    // }
+    // document.getElementById('inputFotoPerfil').addEventListener('change', function(event) {
+    //   const file = event.target.files[0];
+    //   if (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = function(e) {
+    //       document.getElementById('fotoPerfil').src = e.target.result;
+    //     }
+    //     reader.readAsDataURL(file);
+    //   }
+    // });
+
+    // Para la imagen del avión favorito (ejemplo simple)
+    document.getElementById('avionFavorito').addEventListener('change', function(event) {
+        const selectedPlane = event.target.value;
+        // Lógica para cambiar la imagen basada en el avión seleccionado
+        // Por ahora, solo un placeholder si no es "noPlaneSeleccion.png"
+        if (selectedPlane !== "Selecciona un avión") {
+            // Aquí deberías tener una lógica para mapear nombres de avión a rutas de imagen
+            // Ejemplo: document.getElementById('imagenAvionFavorito').src = `../../images/aviones/${selectedPlane.replace(/\s+/g, '_')}.png`;
+            document.getElementById('imagenAvionFavorito').src = `../../images/logo.png`; // Imagen de ejemplo
+        } else {
+            document.getElementById('imagenAvionFavorito').src = `../../images/perfil/noPlaneSeleccion.png`;
+        }
+    });
+  </script>
+  <script src="../../scripts/perfil.js"></script>
+  <script src="../../scripts/config.js"></script>
+  <script src="../../scripts/Sesion.js"></script>    
+  <script src="../../scripts/hamburguesa.js"></script>
+</body>
+
+</html>

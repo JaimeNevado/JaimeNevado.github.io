@@ -1,0 +1,111 @@
+/* =============== */
+/* GALERIA CSS */
+/* =============== */
+
+.gallery-grid {
+    display: grid;
+    /* Columnas POR DEFECTO (para pantallas grandes, como tenías) */
+    grid-template-columns: repeat(7, 1fr);
+    gap: 25px;
+    /* Espacio por defecto */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.aircraft-slot {
+    text-align: center;
+    display: flex;
+    /* Ayuda a que el <a> ocupe el espacio y el contenido se alinee bien */
+    flex-direction: column;
+}
+
+.aircraft-box {
+    /* MODIFICADO: Quitar W/H fijos, usar Aspect Ratio */
+    width: 100%;
+    /* Haz que la caja ocupe el 100% del ancho de su celda en el grid */
+    height: auto;
+    aspect-ratio: 1 / 1;
+    /* Mantiene la caja cuadrada sea cual sea su ancho */
+
+    background-size: cover;
+    background-position: center;
+    background-color: #0d1b2a;
+    border-radius: 16px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+.aircraft-box:hover {
+    filter: brightness(1.1) saturate(1.2);
+    transform: scale(1.05);
+}
+
+.aircraft-label {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    /* Tamaño por defecto */
+    color: white;
+    text-align: center;
+    word-wrap: break-word;
+    /* Asegura que el texto muy largo se parta */
+}
+
+.locked {
+    /* background-image: url('../../images/bloqueado.png');  */
+    /* TU IMAGEN DE CANDADO */
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
+
+.aircraft-slot a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    /* Asegura que el link ocupa todo y alinea su contenido */
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    /* Hace que el link crezca para ocupar el slot */
+}
+
+
+/* ================================================== */
+/*  MEDIA QUERIES PARA RESPONSIVE GRID */
+/* ================================================== */
+
+/* Para Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(5, 1fr);
+        /* 5 Columnas */
+        gap: 20px;
+    }
+}
+
+/* Para Tablets en vertical / Móviles grandes */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 Columnas */
+        gap: 15px;
+    }
+}
+
+/* Para Móviles en vertical (pantallas pequeñas) */
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 Columnas */
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .aircraft-label {
+        font-size: 0.875rem;
+        /* Opcional: Reducir un poco la fuente en móviles */
+    }
+}

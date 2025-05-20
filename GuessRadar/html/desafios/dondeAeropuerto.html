@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ordena los Aviones</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+
+    <link rel="stylesheet" href="../../styles/desafios.css">
+    <link rel="stylesheet" href="../../styles/avion.css">
+    <link rel="stylesheet" href="../../styles/desafios/stylesAeropuerto.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="../ventanasPrincipales/index.html">
+                <img src="../../images/logo.png" alt="Guess Radar Logo">
+            </a>
+        </div>
+
+        <button class="menu-toggle" aria-label="Abrir menú de navegación">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li><a href="../ventanasPrincipales/juegoPrincipal.html">JUGAR</a></li>
+                <li><a href="../ventanasPrincipales/desafios.html">DESAFÍOS</a></li>
+                <li><a href="../ventanasPrincipales/galeria.html">GALERÍA</a></li>
+                <li><a href="../ventanasPrincipales/clasificacion.html">CLASIFICACIÓN</a></li>
+                <li><a href="../ventanasPrincipales/amigos.html">AMIGOS</a></li>
+                <li id="estadoSesion"></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="config-menu-container">
+        <img src="../../images/configuración.png" alt="Configuración" class="config-icon" onclick="toggleMenu()" />
+        <div class="config-dropdown" id="configDropdown">
+            <a href="../ventanasPrincipales/soporte.html">Soporte</a>
+            <a href="../ventanasPrincipales/opciones.html">Opciones</a>
+            <a href="../ventanasPrincipales/login.html" id="cerrarSesionLink">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="../ventanasPrincipales/desafios.html" class="back-arrow">←</a>
+    </div>
+
+    <h2>DESAFÍO - ¿Dónde está el Aeropuerto?</h2>
+    <p class="question">Selecciona dentro de la lista la ciudad a la que corresponde el aeropuerto de la imagen.</p>
+    <div>
+        <img src="../../images/desafiosVistaPrevia/Aeropuerto.jpg" alt="Imagen del Aeropuerto" class="aeropuerto">
+    </div>
+    <div class="ordena-container">
+        <select id="seleccion-aeropuerto">
+            <option value="">-- Selecciona un aeropuerto --</option>
+            <option value="Málaga">Málaga - Costa del Sol (AGP)</option>
+            <option value="Barcelona">Barcelona - El Prat (BCN)</option>
+            <option value="Londres">Londres - Heathrow (LHR)</option>
+            <option value="París">París - Charles de Gaulle (CDG)</option>
+            <option value="Nueva York">Nueva York - JFK</option>
+            <option value="Tokio">Tokio - Narita (NRT)</option>
+            <option value="Frankfurt">Frankfurt (FRA)</option>
+            <option value="Ámsterdam">Ámsterdam - Schiphol (AMS)</option>
+            <option value="Roma">Roma - Fiumicino (FCO)</option>
+            <option value="Lisboa">Lisboa (LIS)</option>
+        </select>
+
+        <br><br>
+        <button onclick="verificarRespuesta()">Comprobar</button>
+
+        <div class="resultado" id="mensajeResultado"></div>
+    </div>
+
+    <script src="../../scripts/desafios/dondeAeropuerto.js"></script>
+    <script src="../../scripts/config.js"></script>
+    <script src="../../scripts/Sesion.js"></script>
+    <script src="../../scripts/hamburguesa.js"></script>
+
+</body>
+
+</html>

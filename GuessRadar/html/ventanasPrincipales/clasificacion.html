@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Radar - Clasificación</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/stylesClasificacion.css">
+</head>
+
+<body>
+<header role="banner">
+  <div class="logo">
+    <a href="../ventanasPrincipales/index.html">
+      <img src="../../images/logo.png" alt="Logo de Guess Radar, volver a la página principal" />
+    </a>
+  </div>
+
+  <button class="menu-toggle" aria-label="Abrir menú de navegación">
+    <span class="bar" aria-hidden="true"></span>
+    <span class="bar" aria-hidden="true"></span>
+    <span class="bar" aria-hidden="true"></span>
+  </button>
+
+  <nav class="navbar">
+    <ul class="navbar-nav" id="menuPrincipal">
+      <li><a href="../ventanasPrincipales/juegoPrincipal.html">JUGAR</a></li>
+      <li><a href="../ventanasPrincipales/desafios.html">DESAFÍOS</a></li>
+      <li><a href="../ventanasPrincipales/galeria.html">GALERÍA</a></li>
+      <li><a href="../ventanasPrincipales/clasificacion.html">CLASIFICACIÓN</a></li>
+      <li><a href="../ventanasPrincipales/amigos.html">AMIGOS</a></li>
+      <li id="estadoSesion"></li>
+    </ul>
+  </nav>
+</header>
+
+    <div class="home-icon">
+        <a href="../ventanasPrincipales/index.html">
+            <img src="../../images/home.png" alt="Ir a inicio" />
+        </a>
+    </div>
+
+    <div class="config-menu-container">
+        <img src="../../images/configuración.png" alt="Abrir menú de configuración" class="config-icon" onclick="toggleMenu()" role="button" tabindex="0" aria-controls="configDropdown" />
+        <div class="config-dropdown" id="configDropdown" role="menu">
+            <a href="../ventanasPrincipales/soporte.html" role="menuitem">Soporte</a>
+            <a href="../ventanasPrincipales/opciones.html" role="menuitem">Opciones</a>
+            <a href="../ventanasPrincipales/login.html"  id="cerrarSesionLink" role="menuitem">Cerrar Sesión</a>
+        </div>
+    </div>
+
+<main role="main" aria-labelledby="tituloClasificacion">
+  <p id="tituloClasificacion" class="login-text"><em>CLASIFICACIÓN</em></p>
+
+  <section class="clasificacion-section" aria-labelledby="busquedaClasificacion">
+    <div class="clasificacion-header">
+      <label for="inputBuscarUsuario" id="busquedaClasificacion">Buscar Usuario por Nombre</label>
+      <input
+        type="text"
+        id="inputBuscarUsuario"
+        placeholder="Escribe un nombre de usuario"
+        aria-label="Buscar Usuario por Nombre en la Clasificación"
+      >
+    </div>
+
+    <section class="leaderboard" aria-labelledby="tituloTabla">
+      <h2 id="tituloTabla" class="sr-only">Tabla de Posiciones</h2>
+
+      <ol id="listaClasificacion" aria-live="polite">
+        <li class="entry" aria-label="Puesto 1, usuario DFR, nivel 50">
+          <span aria-hidden="true">#1</span>
+          <span>DFR</span>
+          <span>Nivel 50</span>
+        </li>
+        <li class="entry" aria-label="Puesto 2, usuario Jadira146, nivel 45">
+          <span aria-hidden="true">#2</span>
+          <span>Jadira146</span>
+          <span>Nivel 45</span>
+        </li>
+        <li class="entry" aria-label="Puesto 3, usuario NoNaZz, nivel 43">
+          <span aria-hidden="true">#3</span>
+          <span>NoNaZz</span>
+          <span>Nivel 43</span>
+        </li>
+        <li class="entry" aria-label="Puesto 4, usuario LuisFR, nivel 42">
+          <span aria-hidden="true">#4</span>
+          <span>LuisFR</span>
+          <span>Nivel 42</span>
+        </li>
+        <li class="entry" aria-label="Puesto 5, usuario JUANMINATOR, nivel 40">
+          <span aria-hidden="true">#5</span>
+          <span>JUANMINATOR</span>
+          <span>Nivel 40</span>
+        </li>
+        <li class="entry" aria-label="Puesto 6, usuario Mini Hulk, nivel 38">
+          <span aria-hidden="true">#6</span>
+          <span>Mini Hulk</span>
+          <span>Nivel 38</span>
+        </li>
+        <li class="entry" aria-label="Puesto 7, usuario ByMate, nivel 37">
+          <span aria-hidden="true">#7</span>
+          <span>ByMate</span>
+          <span>Nivel 37</span>
+        </li>
+        <li class="entry" aria-label="Puesto 8, usuario Jaime, nivel 35">
+          <span aria-hidden="true">#8</span>
+          <span>Jaime:)</span>
+          <span>Nivel 35</span>
+        </li>
+        <li class="entry" aria-label="Puesto 9, usuario MiniFR, nivel 33">
+          <span aria-hidden="true">#9</span>
+          <span>MiniFR</span>
+          <span>Nivel 33</span>
+        </li>
+        <li class="entry" aria-label="Puesto 10, usuario sorry bout tht, nivel 31">
+          <span aria-hidden="true">#10</span>
+          <span>sorry bout tht</span>
+          <span>Nivel 31</span>
+        </li>
+      </ol>
+    </section>
+  </section>
+</main>
+
+    <script src="../../scripts/scriptClasificacion.js"></script>
+    <script src="../../scripts/config.js"></script>
+    <script src="../../scripts/Sesion.js"></script>
+    <script src="../../scripts/hamburguesa.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/* ARCHIVO: stylesBuscaVuely.css */
+
+/* Contenedor para las imágenes del desafío "Busca a Vuely" */
+.images-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px;
+	max-width: 900px;
+	margin: 20px auto;
+}
+
+.challenge-image {
+	width: 200px;
+	/* Tamaño base para pantallas más grandes (escritorio) */
+	height: auto;
+	/* Mantiene la proporción de la imagen */
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	object-fit: cover;
+}
+
+.challenge-image:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Media Query para Móviles (Tablets y móviles grandes en vertical) --- */
+@media (max-width: 768px) {
+	.images-container {
+		flex-direction: column;
+		/* Apila las imágenes verticalmente */
+		align-items: center;
+		/* Centra las imágenes apiladas */
+		gap: 25px;
+		padding: 15px;
+	}
+
+	.challenge-image {
+		width: 80%;
+		/* Que la imagen ocupe un buen porcentaje del ancho del contenedor */
+		max-width: 300px;
+		/* CORREGIDO: Un máximo razonable en píxeles */
+		/* height: auto; ya está definido, se mantiene */
+	}
+}
+
+/* --- Media Query para Móviles Pequeños (Vertical) --- */
+@media (max-width: 480px) {
+	.images-container {
+		gap: 20px;
+		padding: 10px;
+	}
+
+	.challenge-image {
+		width: 90%;
+		/* Casi todo el ancho disponible */
+		max-width: 280px;
+		/* CORREGIDO: Un máximo razonable en píxeles */
+	}
+}

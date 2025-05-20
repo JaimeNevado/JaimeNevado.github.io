@@ -1,0 +1,71 @@
+.options-panel {
+  max-width: 1000px;
+  margin: 60px auto; /* Centramos el contenedor, no el contenido */
+  padding: 40px;
+  background-color: #0d1b2a;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start; /* alineación horizontal */
+/* alineación vertical */
+}
+.options-title {
+  text-align: left;
+  max-width: 1000px;
+  margin: 40px auto 0 auto;
+  padding: 0 40px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.column {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+
+.option-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+
+.option-item label {
+  margin-bottom: 8px;
+}
+
+.option-item select,
+.option-item input[type="checkbox"] {
+  font-size: 1.1rem;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background-color: #e0e0e0;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.option-item select:hover {
+  background-color: #d0d0d0;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

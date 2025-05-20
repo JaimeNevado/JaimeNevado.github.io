@@ -1,0 +1,188 @@
+/* styles/stylesPerfil.css */
+
+/* Título principal de la página de perfil */
+.title {
+  text-align: center;
+  font-size: 2.5em; /* Ajustado entre tu 2em y mi 3em, puedes cambiarlo */
+  color: #FFF;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* Contenedor principal del perfil */
+.profile-container {
+  display: flex;
+  flex-direction: column; /* Apila las tarjetas verticalmente */
+  align-items: center; /* Centra las tarjetas horizontalmente */
+  gap: 25px; /* Espacio entre las tarjetas */
+  padding: 20px;
+  max-width: 700px; /* Ancho máximo del contenido del perfil */
+  margin: 20px auto; /* Centra el contenedor en la página */
+  color: #e0e0e0;
+}
+
+/* Estilo base para todas las tarjetas */
+.profile-card {
+  background-color: rgba(40, 40, 70, 0.7);
+  border: 1px solid rgba(100, 100, 150, 0.5);
+  border-radius: 12px;
+  padding: 25px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.profile-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #FFF;
+  text-align: center;
+  font-size: 1.6em;
+  border-bottom: 1px solid rgba(100, 100, 150, 0.3);
+  padding-bottom: 10px;
+}
+
+/* --- Tarjeta del encabezado del perfil (foto y nombre) --- */
+.profile-header-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+
+.profile-picture-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; /* Espacio entre la foto y el botón cambiar */
+}
+
+#fotoPerfil {
+  width: 120px; /* Mantenemos un tamaño mayor para la foto de perfil principal */
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #7A7AB0; /* Borde que combina con el tema */
+}
+
+.profile-picture-area button {
+  /* Hereda estilos de .profile-container button, padding específico abajo */
+  padding: 8px 15px;
+  font-size: 0.9em;
+}
+
+.profile-info-area {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.profile-info-area h2 { /* Nombre de usuario */
+  margin: 0 0 8px 0;
+  font-size: 2.2em;
+  color: #FFFFFF;
+}
+
+.profile-info-area p { /* "Foto de perfil" texto descriptivo */
+  margin: 0;
+  font-size: 1em;
+  color: #b0b0d0;
+}
+
+/* --- Tarjeta del avión favorito --- */
+.favorite-plane-card {
+  text-align: center;
+}
+
+#avionFavorito { /* Selector de avión */
+  width: 80%;
+  max-width: 300px;
+  padding: 10px; /* Ajustado ligeramente de 12px, puedes volver a 12px si prefieres */
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background-color: #2E2E50;
+  color: #FFF;
+  border: 1px solid #5A5A8A;
+  font-size: 1em; /* Mantenido de tu CSS anterior */
+}
+
+/* Imagen del avión favorito - Fusionando con tus estilos anteriores */
+#imagenAvionFavorito {
+  display: block; /* Para que margin auto funcione */
+  width: 80px;   /* De tu CSS anterior */
+  height: 80px;  /* De tu CSS anterior */
+  border-radius: 50%; /* De tu CSS anterior, para hacerlo circular */
+  object-fit: cover;  /* De tu CSS anterior */
+  border: 2px solid #7A7AB0; /* Color de borde similar a foto de perfil */
+  margin: 20px auto 0; /* margin-top de tu CSS anterior y auto para centrar */
+  background-color: rgba(255,255,255,0.05); /* Fondo sutil si la imagen es transparente */
+  padding: 3px; /* Pequeño padding interno si quieres */
+  transition: transform 0.3s ease; /* De tu CSS anterior */
+}
+
+#imagenAvionFavorito:hover {
+  transform: scale(1.1); /* De tu CSS anterior */
+}
+
+/* --- Tarjeta de estadísticas --- */
+.stats-card .stats {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Eliminado margin-top: 10px; ya que la tarjeta ya tiene padding */
+  text-align: left;
+}
+
+.stats-card .stats li {
+  padding: 10px 0;
+  font-size: 1.2em;
+  border-bottom: 1px solid rgba(100, 100, 150, 0.2);
+  /* Eliminado font-weight: bold; de aquí, lo aplicamos al span del valor */
+  /* Eliminado margin-bottom: 5px; el padding y border ya espacian */
+}
+
+.stats-card .stats li:last-child {
+  border-bottom: none;
+}
+
+.stats-card .stats span { /* Para los valores numéricos */
+  font-weight: bold;
+  color: #A0A0FF;
+  float: right;
+}
+
+/* --- Tarjeta de Cerrar Sesión (o solo el botón) --- */
+.logout-card {
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* --- Estilos generales para botones y selects dentro del perfil --- */
+/* Botón base (aplicado a Cambiar Foto, y como base para Cerrar Sesión) */
+.profile-container button {
+  padding: 10px 15px; /* Padding base, tu antiguo era 6px 12px */
+  background-color: #4A4A7A; /* Mi color base, tu antiguo era #444 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em; /* Para consistencia */
+  transition: background-color 0.3s ease;
+  /* margin-top: 10px; no es necesario aquí, el layout lo maneja con gap o estructura */
+}
+
+.profile-container button:hover {
+  background-color: #6A6AA0; /* Mi hover, tu antiguo era #666 */
+}
+
+/* Botón específico de Cerrar Sesión */
+#cerrarSesionBtnMain {
+  padding: 12px 25px; /* Más prominente */
+  background-color: #C0392B; /* Rojo */
+  font-size: 1.1em;
+}
+
+#cerrarSesionBtnMain:hover {
+  background-color: #A93226;
+}

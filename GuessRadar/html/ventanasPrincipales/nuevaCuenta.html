@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Radar</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="../ventanasPrincipales/index.html">
+      <img src="../../images/logo.png" alt="Guess Radar Logo" />
+    </a>
+  </div>
+
+  <!-- Botón del menú hamburguesa -->
+  <button class="menu-toggle" aria-label="Abrir menú de navegación">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <li><a href="../ventanasPrincipales/juegoPrincipal.html">JUGAR</a></li>
+      <li><a href="../ventanasPrincipales/desafios.html">DESAFÍOS</a></li>
+      <li><a href="../ventanasPrincipales/galeria.html">GALERÍA</a></li>
+      <li><a href="../ventanasPrincipales/clasificacion.html">CLASIFICACIÓN</a></li>
+      <li><a href="../ventanasPrincipales/amigos.html">AMIGOS</a></li>
+      <li id="estadoSesion"></li>
+    </ul>
+  </nav>
+</header>
+
+    <div class="home-icon">
+        <a href="../ventanasPrincipales/index.html">
+            <img src="../../images/home.png" alt="Home Icon" />
+        </a>
+    </div>
+
+    <div class="config-menu-container">
+        <img src="../../images/configuración.png" alt="Configuración" class="config-icon" onclick="toggleMenu()" />
+        <div class="config-dropdown" id="configDropdown">
+            <a href="../ventanasPrincipales/soporte.html">Soporte</a>
+            <a href="../ventanasPrincipales/opciones.html">Opciones</a>
+            <a href="../ventanasPrincipales/login.html"  id="cerrarSesionLink">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="background">
+            
+            <h1><span class="guess">GUESS</span> <span class="radar">RADAR</span></h1>
+            <div class="login-form">
+                <h2>Nueva cuenta</h2>
+                <form id="registroForm">
+                    <label for="username">Nombre de usuario:</label><br>
+                    <input type="text" id="username" name="username" required><br><br>
+            
+                    <label for="password">Contraseña:</label><br>
+                    <input type="password" id="password" name="password" required><br><br>
+            
+                    <button type="submit" id="RegistroButton">Registrarse</button>
+                    <a href="../ventanasPrincipales/login.html" id="registerLink"><br><br> Registrarse con cuenta exitente</a>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="../../scripts/nuevaCuenta.js"></script>
+    <script src="../../scripts/script.js"></script>
+    <script src="../../scripts/config.js"></script>
+    <script src="../../scripts/Sesion.js"></script>
+    <script src="../../scripts/hamburguesa.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Radar - Desafíos</title>
+    <!-- Enlazar primero los estilos generales y luego los específicos de la página -->
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/stylesDesafios.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="../ventanasPrincipales/index.html">
+                <img src="../../images/logo.png" alt="Guess Radar Logo" />
+            </a>
+        </div>
+
+        <!-- Botón del menú hamburguesa -->
+        <button class="menu-toggle" aria-label="Abrir menú de navegación">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li><a href="../ventanasPrincipales/juegoPrincipal.html">JUGAR</a></li>
+                <li><a href="../ventanasPrincipales/desafios.html">DESAFÍOS</a></li>
+                <li><a href="../ventanasPrincipales/galeria.html">GALERÍA</a></li>
+                <li><a href="../ventanasPrincipales/clasificacion.html">CLASIFICACIÓN</a></li>
+                <li><a href="../ventanasPrincipales/amigos.html">AMIGOS</a></li>
+                <li id="estadoSesion"></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="home-icon">
+        <a href="../ventanasPrincipales/index.html">
+            <img src="../../images/home.png" alt="Home Icon" />
+        </a>
+    </div>
+
+    <div class="config-menu-container">
+        <img src="../../images/configuración.png" alt="Configuración" class="config-icon" onclick="toggleMenu()" />
+        <div class="config-dropdown" id="configDropdown">
+            <a href="../ventanasPrincipales/soporte.html">Soporte</a>
+            <a href="../ventanasPrincipales/opciones.html">Opciones</a>
+            <a href="../ventanasPrincipales/login.html" id="cerrarSesionLink">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="background">
+            <p class="login-text"><em>DESAFÍOS</em></p>
+            <div class="challenges-grid">
+                <div class="challenge">
+                    <a href="../desafios/adivinaAvion.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/AdivinaElAvion.png');"></div>
+                        <div class="challenge-label">Adivina el avión</div>
+                    </a>
+                </div>
+                <div class="challenge">
+                    <a href="../desafios/uneAviones.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/UneLosAviones.png');"></div>
+                        <div class="challenge-label">Une los aviones</div>
+                    </a>
+                </div>
+                <div class="challenge">
+                    <a href="../desafios/ordenaAviones.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/OrdenaElAvion.jpg');"></div>
+                        <div class="challenge-label">Ordena los aviones</div>
+                    </a>
+                </div>
+                <div class="challenge">
+                    <a href="../desafios/express.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/Express.jpg');"></div>
+                        <div class="challenge-label">Express</div>
+                    </a>
+                </div>
+                <div class="challenge">
+                    <a href="../desafios/dondeAeropuerto.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/Aeropuerto.jpg');"></div>
+                        <div class="challenge-label">Dónde está el Aeropuerto</div>
+                    </a>
+                </div>
+                <div class="challenge">
+                    <a href="../desafios/buscaVuely.html">
+                        <div class="challenge-box"
+                            style="background-image: url('../../images/desafiosVistaPrevia/Vuely.jpg');"></div>
+                        <div class="challenge-label">Busca a Vuely</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../scripts/script.js"></script>
+    <script src="../../scripts/config.js"></script>
+    <script src="../../scripts/Sesion.js"></script>
+    <!-- Script para el menú hamburguesa, igual que en galeria.html -->
+    <script src="../../scripts/hamburguesa.js"></script>
+</body>
+
+</html>

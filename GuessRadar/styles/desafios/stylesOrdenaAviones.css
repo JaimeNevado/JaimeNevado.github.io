@@ -1,0 +1,81 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e3f;
+  color: white;
+}
+
+.ordena-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.game-board {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  width: 350px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.avion {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.avion.correcto {
+  background-color: #2ecc71;
+}
+
+.avion.incorrecto {
+  background-color: #e74c3c;
+}
+
+.arrow {
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+img {
+  width: 75px;
+  height: auto;
+  border-radius: 5px;
+}
+
+
+.resultado {
+  margin-top: 20px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.back-arrow a {
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  background-color: #b4a7ec;
+  padding: 10px 20px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.back-arrow a:hover {
+  background-color: #3498db;
+}
