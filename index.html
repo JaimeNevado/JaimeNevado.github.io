@@ -1,9 +1,644 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=GuessRadar/html/ventanasPrincipales/index.html" />
-  </head>
-  <body>
-    <p>Redirigiendo... Si no eres redirigido, <a href="GuessRadar/html/ventanasPrincipales/index.html">haz clic aquí</a>.</p>
-  </body>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Plan de Choque - 15 Días</title>
+	<style>
+		:root {
+			--bg-color: #121212;
+			--surface-color: #1e1e1e;
+			--primary-color: #bb86fc;
+			--primary-variant: #3700b3;
+			--secondary-color: #03dac6;
+			--text-color: #e0e0e0;
+			--green-color: #4CAF50;
+			--red-color: #f44336;
+			--locked-color: #424242;
+			--locked-text: #757575;
+		}
+
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: var(--bg-color);
+			color: var(--text-color);
+			margin: 0;
+			padding: 20px;
+			line-height: 1.6;
+		}
+
+		.container {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: var(--surface-color);
+			border-radius: 12px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+		}
+
+		h1,
+		h2,
+		h3 {
+			color: var(--primary-color);
+			border-bottom: 2px solid var(--primary-variant);
+			padding-bottom: 10px;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 2.5em;
+		}
+
+		.intro {
+			background-color: rgba(187, 134, 252, 0.1);
+			padding: 15px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			border-left: 4px solid var(--primary-color);
+		}
+
+		#days-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 15px;
+			margin-bottom: 30px;
+		}
+
+		.day-btn {
+			padding: 15px;
+			border-radius: 8px;
+			text-align: center;
+			cursor: pointer;
+			border: none;
+			font-size: 1em;
+			font-weight: 700;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.day-btn:hover:not(.locked) {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+		}
+
+		.day-btn.current {
+			background-color: var(--primary-color);
+			color: var(--bg-color);
+		}
+
+		.day-btn.completed {
+			background-color: var(--green-color);
+			color: white;
+		}
+
+		.day-btn.locked {
+			background-color: var(--locked-color);
+			color: var(--locked-text);
+			cursor: not-allowed;
+		}
+
+		.day-btn .day-title {
+			display: block;
+			font-size: 1.2em;
+		}
+
+		.day-btn .day-focus {
+			display: block;
+			font-size: 0.8em;
+			opacity: 0.8;
+		}
+
+		#exercises-container {
+			margin-top: 20px;
+		}
+
+		#workout-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background-color: rgba(3, 218, 198, 0.1);
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.exercise-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 15px;
+			background-color: var(--bg-color);
+			border-radius: 8px;
+			margin-bottom: 10px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+			border-left: 4px solid var(--secondary-color);
+		}
+
+		.exercise-item:hover {
+			background-color: #2a2a2a;
+		}
+
+		.exercise-item.completed {
+			border-left-color: var(--green-color);
+			background-color: rgba(76, 175, 80, 0.1);
+		}
+
+		.exercise-item.completed .exercise-name {
+			text-decoration: line-through;
+			color: var(--locked-text);
+		}
+
+		.exercise-name {
+			font-size: 1.2em;
+			font-weight: 500;
+		}
+
+		.exercise-details-preview {
+			font-size: 0.9em;
+			color: #b0b0b0;
+		}
+
+		/* Modal */
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.8);
+			align-items: center;
+			justify-content: center;
+		}
+
+		.modal-content {
+			background-color: var(--surface-color);
+			margin: auto;
+			padding: 30px;
+			border-radius: 12px;
+			width: 90%;
+			max-width: 500px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1px solid var(--locked-color);
+			padding-bottom: 15px;
+			margin-bottom: 20px;
+		}
+
+		.modal-header h3 {
+			border: none;
+			padding: 0;
+			margin: 0;
+			font-size: 1.8em;
+		}
+
+		.close-btn {
+			color: #aaa;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close-btn:hover,
+		.close-btn:focus {
+			color: white;
+		}
+
+		.set-item {
+			display: flex;
+			align-items: center;
+			padding: 10px;
+			margin-bottom: 8px;
+			background-color: var(--bg-color);
+			border-radius: 6px;
+		}
+
+		.set-checkbox {
+			width: 20px;
+			height: 20px;
+			margin-right: 15px;
+			cursor: pointer;
+			accent-color: var(--primary-color);
+		}
+
+		.set-label {
+			font-size: 1.1em;
+		}
+
+		.set-time {
+			font-size: 0.9em;
+			color: var(--locked-text);
+			margin-left: auto;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<h1>Plan de Choque - 15 Días</h1>
+		<div class="intro">
+			<p><strong>¡Bienvenido!</strong> Este es un plan intensivo para maximizar tus resultados en 15 días. La
+				clave es la <strong>consistencia</strong> y la <strong>intensidad</strong>.</p>
+			<ul>
+				<li><strong>Nutrición:</strong> Sigue el plan de comidas para asegurar el superávit calórico y la
+					ingesta de proteínas.</li>
+				<li><strong>Suplementos:</strong> Usa la proteína en polvo post-entreno y la creatina diariamente (5g).
+				</li>
+				<li><strong>Técnica:</strong> Prioriza la forma correcta sobre el peso. Elige un peso que te permita
+					completar las repeticiones marcadas pero que la última serie sea un desafío real.</li>
+				<li><strong>Descanso:</strong> Duerme 7-8 horas. El músculo crece cuando descansas, no cuando entrenas.
+				</li>
+			</ul>
+		</div>
+
+		<h2>Calendario de Entrenamiento</h2>
+		<div id="days-container"></div>
+
+		<div id="exercises-container"></div>
+	</div>
+
+	<div id="exercise-modal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 id="modal-title"></h3>
+				<span class="close-btn">×</span>
+			</div>
+			<div id="modal-body"></div>
+		</div>
+	</div>
+
+	<script>
+		const workoutPlan = [
+			// Semana 1
+			{
+				day: 1, focus: "Torso A - Empuje", time: 75, exercises: [
+					{ name: "Press de Banca con Barra", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Press Inclinado con Mancuernas", sets: 3, reps: "10-12", time: 8 },
+					{ name: "Press Militar (de hombros) con Mancuernas", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Elevaciones Laterales con Mancuernas", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Fondos en Paralelas (o máquina)", sets: 3, reps: "Al fallo", time: 7 },
+					{ name: "Extensión de Tríceps en Polea", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Elevación de Piernas Colgado (Abdominales)", sets: 4, reps: "15-20", time: 8 },
+					{ name: "Plancha Abdominal", sets: 3, reps: "60 seg", time: 5 },
+				]
+			},
+			{
+				day: 2, focus: "Torso B - Tracción", time: 70, exercises: [
+					{ name: "Dominadas (o Jalón al Pecho en máquina)", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Remo con Barra", sets: 3, reps: "8-10", time: 8 },
+					{ name: "Remo en Máquina (agarre cerrado)", sets: 3, reps: "10-12", time: 7 },
+					{ name: "Pájaros (Elevaciones posteriores)", sets: 3, reps: "15-20", time: 7 },
+					{ name: "Curl de Bíceps con Barra Z", sets: 4, reps: "10-12", time: 8 },
+					{ name: "Curl Martillo con Mancuernas", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Encogimientos de Hombros (Trapecio)", sets: 4, reps: "15", time: 7 },
+					{ name: "Crunch en Polea Alta (Abdominales)", sets: 4, reps: "15-20", time: 8 },
+				]
+			},
+			{
+				day: 3, focus: "Pierna y Cardio Ligero", time: 60, exercises: [
+					{ name: "Sentadillas con Barra", sets: 4, reps: "8-10", time: 12 },
+					{ name: "Prensa Inclinada", sets: 3, reps: "12-15", time: 8 },
+					{ name: "Extensiones de Cuádriceps", sets: 3, reps: "15", time: 7 },
+					{ name: "Curl Femoral Tumbado", sets: 4, reps: "12-15", time: 8 },
+					{ name: "Elevación de Gemelos de pie", sets: 5, reps: "20", time: 8 },
+					{ name: "Cardio en Elíptica/Bici (moderado)", sets: 1, reps: "15 min", time: 15 },
+				]
+			},
+			{
+				day: 4, focus: "Torso A - Empuje (Intensidad)", time: 75, exercises: [
+					{ name: "Press Inclinado con Barra", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Aperturas con Mancuernas en Banco Plano", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Press Arnold (hombros)", sets: 4, reps: "10-12", time: 10 },
+					{ name: "Elevaciones Frontales con disco", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Press Francés (tríceps)", sets: 4, reps: "10-12", time: 8 },
+					{ name: "Patada de Tríceps en Polea", sets: 3, reps: "15", time: 7 },
+					{ name: "Rueda Abdominal", sets: 4, reps: "10-15", time: 8 },
+					{ name: "Giros Rusos con peso", sets: 3, reps: "20 (10 por lado)", time: 5 },
+				]
+			},
+			{
+				day: 5, focus: "Torso B - Tracción (Intensidad)", time: 70, exercises: [
+					{ name: "Remo con Mancuerna a una mano", sets: 4, reps: "8-10 (por brazo)", time: 10 },
+					{ name: "Jalón al Pecho (agarre ancho)", sets: 3, reps: "10-12", time: 8 },
+					{ name: "Face Pull (polea alta)", sets: 3, reps: "15-20", time: 7 },
+					{ name: "Pullover en Polea Alta", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Curl de Bíceps Concentrado", sets: 4, reps: "12 (por brazo)", time: 8 },
+					{ name: "Curl de Bíceps en Polea Baja", sets: 3, reps: "15", time: 7 },
+					{ name: "Hiperextensiones (Lumbares)", sets: 3, reps: "15", time: 7 },
+					{ name: "Abdominales en máquina", sets: 4, reps: "15-20", time: 8 },
+				]
+			},
+			{
+				day: 6, focus: "DESCANSO ACTIVO", time: 30, exercises: [
+					{ name: "Caminata ligera en cinta", sets: 1, reps: "20-30 min", time: 30 },
+					{ name: "Estiramientos completos", sets: 1, reps: "10-15 min", time: 0 },
+				]
+			},
+			{ day: 7, focus: "DESCANSO TOTAL", time: 0, exercises: [] },
+
+			// Semana 2 - Se repite el ciclo con más peso/reps
+			{
+				day: 8, focus: "Torso A - Empuje", time: 75, exercises: [
+					{ name: "Press de Banca con Barra", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Press Inclinado con Mancuernas", sets: 3, reps: "10-12", time: 8 },
+					{ name: "Press Militar (de hombros) con Mancuernas", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Elevaciones Laterales con Mancuernas", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Fondos en Paralelas (o máquina)", sets: 3, reps: "Al fallo", time: 7 },
+					{ name: "Extensión de Tríceps en Polea", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Elevación de Piernas Colgado (Abdominales)", sets: 4, reps: "15-20", time: 8 },
+					{ name: "Plancha Abdominal", sets: 3, reps: "60 seg", time: 5 },
+				]
+			},
+			{
+				day: 9, focus: "Torso B - Tracción", time: 70, exercises: [
+					{ name: "Dominadas (o Jalón al Pecho en máquina)", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Remo con Barra", sets: 3, reps: "8-10", time: 8 },
+					{ name: "Remo en Máquina (agarre cerrado)", sets: 3, reps: "10-12", time: 7 },
+					{ name: "Pájaros (Elevaciones posteriores)", sets: 3, reps: "15-20", time: 7 },
+					{ name: "Curl de Bíceps con Barra Z", sets: 4, reps: "10-12", time: 8 },
+					{ name: "Curl Martillo con Mancuernas", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Encogimientos de Hombros (Trapecio)", sets: 4, reps: "15", time: 7 },
+					{ name: "Crunch en Polea Alta (Abdominales)", sets: 4, reps: "15-20", time: 8 },
+				]
+			},
+			{
+				day: 10, focus: "Pierna y Cardio Ligero", time: 60, exercises: [
+					{ name: "Sentadillas con Barra", sets: 4, reps: "8-10", time: 12 },
+					{ name: "Prensa Inclinada", sets: 3, reps: "12-15", time: 8 },
+					{ name: "Extensiones de Cuádriceps", sets: 3, reps: "15", time: 7 },
+					{ name: "Curl Femoral Tumbado", sets: 4, reps: "12-15", time: 8 },
+					{ name: "Elevación de Gemelos de pie", sets: 5, reps: "20", time: 8 },
+					{ name: "Cardio en Elíptica/Bici (moderado)", sets: 1, reps: "15 min", time: 15 },
+				]
+			},
+			{
+				day: 11, focus: "Torso A - Empuje (Intensidad)", time: 75, exercises: [
+					{ name: "Press Inclinado con Barra", sets: 4, reps: "8-10", time: 10 },
+					{ name: "Aperturas con Mancuernas en Banco Plano", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Press Arnold (hombros)", sets: 4, reps: "10-12", time: 10 },
+					{ name: "Elevaciones Frontales con disco", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Press Francés (tríceps)", sets: 4, reps: "10-12", time: 8 },
+					{ name: "Patada de Tríceps en Polea", sets: 3, reps: "15", time: 7 },
+					{ name: "Rueda Abdominal", sets: 4, reps: "10-15", time: 8 },
+					{ name: "Giros Rusos con peso", sets: 3, reps: "20 (10 por lado)", time: 5 },
+				]
+			},
+			{
+				day: 12, focus: "Torso B - Tracción (Intensidad)", time: 70, exercises: [
+					{ name: "Remo con Mancuerna a una mano", sets: 4, reps: "8-10 (por brazo)", time: 10 },
+					{ name: "Jalón al Pecho (agarre ancho)", sets: 3, reps: "10-12", time: 8 },
+					{ name: "Face Pull (polea alta)", sets: 3, reps: "15-20", time: 7 },
+					{ name: "Pullover en Polea Alta", sets: 3, reps: "12-15", time: 7 },
+					{ name: "Curl de Bíceps Concentrado", sets: 4, reps: "12 (por brazo)", time: 8 },
+					{ name: "Curl de Bíceps en Polea Baja", sets: 3, reps: "15", time: 7 },
+					{ name: "Hiperextensiones (Lumbares)", sets: 3, reps: "15", time: 7 },
+					{ name: "Abdominales en máquina", sets: 4, reps: "15-20", time: 8 },
+				]
+			},
+			{
+				day: 13, focus: "Full Body Ligero", time: 50, exercises: [
+					{ name: "Press de Banca en Máquina", sets: 3, reps: "15", time: 10 },
+					{ name: "Jalón al Pecho", sets: 3, reps: "15", time: 10 },
+					{ name: "Press de Hombros en Máquina", sets: 3, reps: "15", time: 10 },
+					{ name: "Curl Bíceps + Ext. Tríceps (superserie)", sets: 3, reps: "15", time: 10 },
+					{ name: "Plancha y Crunches", sets: 3, reps: "Al fallo", time: 10 },
+				]
+			},
+			{
+				day: 14, focus: "DESCANSO ACTIVO", time: 30, exercises: [
+					{ name: "Caminata ligera en cinta", sets: 1, reps: "20-30 min", time: 30 },
+					{ name: "Estiramientos completos", sets: 1, reps: "10-15 min", time: 0 },
+				]
+			},
+			{ day: 15, focus: "DESCANSO TOTAL", time: 0, exercises: [] }
+		];
+
+		document.addEventListener('DOMContentLoaded', () => {
+			const daysContainer = document.getElementById('days-container');
+			const exercisesContainer = document.getElementById('exercises-container');
+			const modal = document.getElementById('exercise-modal');
+			const modalTitle = document.getElementById('modal-title');
+			const modalBody = document.getElementById('modal-body');
+			const closeBtn = document.querySelector('.close-btn');
+
+			let progress = JSON.parse(localStorage.getItem('workoutProgress')) || {};
+
+			function saveProgress() {
+				localStorage.setItem('workoutProgress', JSON.stringify(progress));
+			}
+
+			function renderDays() {
+				daysContainer.innerHTML = '';
+				let firstUncompletedDay = -1;
+
+				for (let i = 0; i < workoutPlan.length; i++) {
+					if (!progress[`day-${i}`]) {
+						firstUncompletedDay = i;
+						break;
+					}
+				}
+				if (firstUncompletedDay === -1) { // All completed
+					firstUncompletedDay = workoutPlan.length;
+				}
+
+
+				workoutPlan.forEach((day, index) => {
+					const dayBtn = document.createElement('button');
+					dayBtn.classList.add('day-btn');
+					dayBtn.dataset.dayIndex = index;
+
+					const dayTitle = document.createElement('span');
+					dayTitle.classList.add('day-title');
+					dayTitle.textContent = `Día ${day.day}`;
+
+					const dayFocus = document.createElement('span');
+					dayFocus.classList.add('day-focus');
+					dayFocus.textContent = day.focus;
+
+					dayBtn.appendChild(dayTitle);
+					dayBtn.appendChild(dayFocus);
+
+					if (progress[`day-${index}`]) {
+						dayBtn.classList.add('completed');
+					} else if (index === firstUncompletedDay) {
+						dayBtn.classList.add('current');
+					} else if (index > firstUncompletedDay) {
+						dayBtn.classList.add('locked');
+					} else {
+						// This case handles a day that might be in progress but not yet completed
+						dayBtn.classList.add('current');
+					}
+
+					if (!dayBtn.classList.contains('locked')) {
+						dayBtn.addEventListener('click', () => renderExercises(index));
+					}
+
+					daysContainer.appendChild(dayBtn);
+				});
+			}
+
+			function renderExercises(dayIndex) {
+				exercisesContainer.innerHTML = '';
+				const dayData = workoutPlan[dayIndex];
+
+				if (dayData.exercises.length === 0) {
+					exercisesContainer.innerHTML = `<h3>Día de descanso. ¡Aprovéchalo para recuperarte!</h3>`;
+					progress[`day-${dayIndex}`] = true;
+					saveProgress();
+					setTimeout(renderDays, 500); // Re-render days to show completion
+					return;
+				}
+
+				const header = document.createElement('div');
+				header.id = 'workout-header';
+				header.innerHTML = `
+                <h2>Entrenamiento del Día ${dayData.day}: ${dayData.focus}</h2>
+                <span>Tiempo estimado: ${dayData.time} min</span>
+            `;
+				exercisesContainer.appendChild(header);
+
+				dayData.exercises.forEach((exercise, exerciseIndex) => {
+					const key = `d${dayIndex}-e${exerciseIndex}`;
+					const exerciseItem = document.createElement('div');
+					exerciseItem.classList.add('exercise-item');
+					exerciseItem.dataset.dayIndex = dayIndex;
+					exerciseItem.dataset.exerciseIndex = exerciseIndex;
+
+					const totalExerciseTime = exercise.sets * 1.5 + 2; // Rough estimate per exercise
+
+					exerciseItem.innerHTML = `
+                    <div>
+                        <span class="exercise-name">${exercise.name}</span>
+                        <div class="exercise-details-preview">${exercise.sets} series x ${exercise.reps} reps</div>
+                    </div>
+                    <span class="exercise-time">~${exercise.time} min</span>
+                `;
+
+					if (progress[key]) {
+						exerciseItem.classList.add('completed');
+					}
+
+					exerciseItem.addEventListener('click', () => showExerciseModal(dayIndex, exerciseIndex));
+					exercisesContainer.appendChild(exerciseItem);
+				});
+				// Scroll to the workout list
+				exercisesContainer.scrollIntoView({ behavior: 'smooth' });
+			}
+
+			function showExerciseModal(dayIndex, exerciseIndex) {
+				const exercise = workoutPlan[dayIndex].exercises[exerciseIndex];
+				modalTitle.textContent = exercise.name;
+				modalBody.innerHTML = '';
+
+				for (let i = 0; i < exercise.sets; i++) {
+					const setKey = `d${dayIndex}-e${exerciseIndex}-s${i}`;
+
+					const setItem = document.createElement('div');
+					setItem.classList.add('set-item');
+
+					const checkbox = document.createElement('input');
+					checkbox.type = 'checkbox';
+					checkbox.id = setKey;
+					checkbox.classList.add('set-checkbox');
+					checkbox.dataset.dayIndex = dayIndex;
+					checkbox.dataset.exerciseIndex = exerciseIndex;
+					checkbox.dataset.setIndex = i;
+					checkbox.checked = !!progress[setKey];
+
+					const label = document.createElement('label');
+					label.htmlFor = setKey;
+					label.classList.add('set-label');
+					label.textContent = `Serie ${i + 1}: ${exercise.reps}`;
+
+					const timeLabel = document.createElement('span');
+					timeLabel.classList.add('set-time');
+					timeLabel.textContent = `~90 seg descanso`;
+
+					setItem.appendChild(checkbox);
+					setItem.appendChild(label);
+					setItem.appendChild(timeLabel);
+					modalBody.appendChild(setItem);
+
+					checkbox.addEventListener('change', (e) => {
+						progress[e.target.id] = e.target.checked;
+						saveProgress();
+						checkCompletion(dayIndex, exerciseIndex);
+					});
+				}
+
+				modal.style.display = 'flex';
+			}
+
+			function checkCompletion(dayIndex, exerciseIndex) {
+				const exercise = workoutPlan[dayIndex].exercises[exerciseIndex];
+				let allSetsDone = true;
+				for (let i = 0; i < exercise.sets; i++) {
+					if (!progress[`d${dayIndex}-e${exerciseIndex}-s${i}`]) {
+						allSetsDone = false;
+						break;
+					}
+				}
+
+				const exerciseKey = `d${dayIndex}-e${exerciseIndex}`;
+				if (allSetsDone) {
+					if (!progress[exerciseKey]) {
+						progress[exerciseKey] = true;
+						saveProgress();
+						renderExercises(dayIndex); // Re-render to show green check
+					}
+				} else {
+					if (progress[exerciseKey]) {
+						delete progress[exerciseKey];
+						saveProgress();
+						renderExercises(dayIndex);
+					}
+				}
+
+				// Check if all exercises for the day are done
+				const dayData = workoutPlan[dayIndex];
+				let allExercisesDone = true;
+				for (let i = 0; i < dayData.exercises.length; i++) {
+					if (!progress[`d${dayIndex}-e${i}`]) {
+						allExercisesDone = false;
+						break;
+					}
+				}
+
+				if (allExercisesDone && dayData.exercises.length > 0) {
+					if (!progress[`day-${dayIndex}`]) {
+						progress[`day-${dayIndex}`] = true;
+						saveProgress();
+						renderDays();
+						// Optional: show a completion message
+						setTimeout(() => {
+							alert(`¡Día ${dayIndex + 1} completado! ¡Gran trabajo! El siguiente día está desbloqueado.`);
+						}, 500);
+					}
+				}
+			}
+
+			closeBtn.addEventListener('click', () => modal.style.display = 'none');
+			window.addEventListener('click', (e) => {
+				if (e.target == modal) {
+					modal.style.display = 'none';
+				}
+			});
+
+			// Initial render
+			renderDays();
+		});
+	</script>
+</body>
+
 </html>
