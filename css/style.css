@@ -252,21 +252,30 @@ footer {
 /* --- RESPONSIVIDAD --- */
 @media (max-width: 768px) {
 	.nav-links {
-		display: none;
-		/* Ocultar para menú hamburguesa después */
+		display: flex;
+		/* CAMBIA DE NONE A FLEX */
+		position: fixed;
+		top: 0;
+		right: -100%;
+		width: 100%;
+		height: 100vh;
+		background: rgba(255, 255, 255, 0.98);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+		gap: 40px;
+		z-index: 10000;
 	}
 
-	.menu-btn {
-		display: block;
+	.nav-links.open {
+		right: 0;
+		/* Esto lo hace aparecer */
 	}
 
-	h1 {
-		font-size: 2.8rem;
-	}
-
-	.project-grid {
-		grid-template-columns: 1fr;
-	}
+	/* El resto se queda igual... */
 }
 
 /* Botón Central opcional */
@@ -290,4 +299,282 @@ footer {
 .btn:hover {
 	transform: scale(1.05);
 	opacity: 0.9;
+}
+
+/* --- HAMBURGER MENU ANIMATION --- */
+.menu-btn {
+	position: relative;
+	display: none;
+	/* Se activa en móvil vía Media Query */
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	transition: all .5s ease-in-out;
+	z-index: 10001;
+}
+
+.menu-btn__burger {
+	width: 20px;
+	height: 2px;
+	background: var(--text);
+	border-radius: 5px;
+	transition: all .5s ease-in-out;
+}
+
+.menu-btn__burger::before,
+.menu-btn__burger::after {
+	content: '';
+	position: absolute;
+	width: 20px;
+	height: 2px;
+	background: var(--text);
+	border-radius: 5px;
+	transition: all .5s ease-in-out;
+}
+
+.menu-btn__burger::before {
+	transform: translateY(-6px);
+}
+
+.menu-btn__burger::after {
+	transform: translateY(6px);
+}
+
+/* Animación a X */
+.menu-btn.open .menu-btn__burger {
+	transform: translateX(-50px);
+	background: transparent;
+}
+
+.menu-btn.open .menu-btn__burger::before {
+	transform: rotate(45deg) translate(35px, -35px);
+}
+
+.menu-btn.open .menu-btn__burger::after {
+	transform: rotate(-45deg) translate(35px, 35px);
+}
+
+/* --- MOBILE NAVIGATION --- */
+@media (max-width: 768px) {
+	.menu-btn {
+		display: flex;
+	}
+
+	.nav-links {
+		position: fixed;
+		top: 0;
+		right: -100%;
+		/* Escondido a la derecha */
+		width: 100%;
+		height: 100vh;
+		background: rgba(255, 255, 255, 0.98);
+		backdrop-filter: blur(20px);
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+		gap: 40px;
+	}
+
+	.nav-links.open {
+		right: 0;
+		/* Aparece al hacer clic */
+	}
+
+	.nav-links a {
+		font-size: 1.5rem;
+		font-weight: 500;
+	}
+}
+
+/* --- Scroll Indicator --- */
+.scroll-indicator {
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	color: var(--gray);
+	font-size: 0.75rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	opacity: 0.8;
+	transition: var(--transition);
+}
+
+/* La flecha minimalista (una línea angulada) */
+.arrow-scroll {
+	width: 1px;
+	height: 40px;
+	background: linear-gradient(to bottom, var(--gray), transparent);
+	position: relative;
+	animation: scrollBounce 2s infinite;
+}
+
+.arrow-scroll::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: -3px;
+	width: 7px;
+	height: 7px;
+	border-bottom: 1px solid var(--gray);
+	border-right: 1px solid var(--gray);
+	transform: rotate(45deg);
+}
+
+@keyframes scrollBounce {
+
+	0%,
+	20%,
+	50%,
+	80%,
+	100% {
+		transform: translateY(0);
+	}
+
+	40% {
+		transform: translateY(10px);
+	}
+
+	60% {
+		transform: translateY(5px);
+	}
+}
+
+/* Desaparece cuando el usuario empieza a bajar */
+.scroll-indicator.fade-out {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA TOOLS --- */
+
+.shop-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+	padding-bottom: 50px;
+}
+
+.product-card {
+	background: var(--card-bg);
+	border-radius: 24px;
+	padding: 15px;
+	/* Margen interno para que la imagen no toque el borde */
+	display: flex;
+	flex-direction: column;
+	transition: var(--transition);
+	border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.product-card:hover {
+	background: #ffffff;
+	transform: translateY(-8px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Contenedor Imagen Formato 4:3 */
+.product-img-box {
+	width: 100%;
+	aspect-ratio: 3 / 3;
+	/* RELACIÓN DE ASPECTO 4:3 */
+	background: #fff;
+	border-radius: 18px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.product-img-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* Esto asegura que la imagen llene el 4:3 sin deformarse */
+}
+
+.category-tag {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--accent);
+	font-weight: 700;
+	margin-bottom: 8px;
+	display: block;
+}
+
+.product-info h3 {
+	font-size: 1.3rem;
+	margin-bottom: 10px;
+	letter-spacing: -0.02em;
+}
+
+.product-info p {
+	color: var(--gray);
+	font-size: 0.95rem;
+	line-height: 1.4;
+	margin-bottom: 20px;
+}
+
+.buy-link {
+	margin-top: auto;
+	/* Empuja el enlace siempre al fondo de la tarjeta */
+	color: var(--text);
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.9rem;
+	transition: var(--transition);
+}
+
+.buy-link:hover {
+	color: var(--accent);
+}
+
+/* --- Centrado Específico para Cabeceras --- */
+.center-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* Centra horizontalmente los hijos */
+	justify-content: center;
+	text-align: center;
+	/* Centra el texto en sí mismo */
+	margin: 80px auto 60px auto;
+	/* Margen superior para el navbar y centrado auto */
+	width: 100%;
+	max-width: 800px;
+	/* Evita que el texto sea demasiado ancho en PC */
+	padding: 0 20px;
+	/* Margen de seguridad para móviles */
+}
+
+.center-header h1 {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.center-header .gray-text {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* --- Responsive para Tools --- */
+@media (max-width: 768px) {
+	.center-header {
+		margin-top: 100px;
+		/* Más espacio en móvil por el menú */
+	}
+
+	.center-header h1 {
+		font-size: 2.5rem;
+		/* Título un poco más pequeño en móviles */
+	}
 }
