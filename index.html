@@ -1,50 +1,69 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Plan de Choque - Temporizador Integrado</title>
-	<link rel="stylesheet" href="estilos.css">
-	<link rel="stylesheet" href="estilos.css">
+	<title>Jaime Nevado | Portfolio</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-	<div class="container">
-		<h1>Plan de Choque - 15 Días</h1>
-		<div class="intro">
-			<p><strong>¡Bienvenido!</strong> Calendario de ejercicios para maximizar crecimiento muscular en 15 días.
-			</p>
-		</div>
 
-		<h2>Calendario de Entrenamiento</h2>
-		<div id="days-container"></div>
-		<div id="exercises-container"></div>
-	</div>
-
-	<div id="exercise-modal" class="modal">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h3 id="modal-title"></h3>
-				<span class="close-btn" id="sets-close-btn">×</span>
-			</div>
-			<div id="modal-body"></div>
-			<!-- ELEMENTO DEL TEMPORIZADOR AÑADIDO -->
-			<div id="timer-container">
-				<span id="timer-display"></span>
+	<nav class="navbar">
+		<div class="nav-content">
+			<div class="logo">Jaime Nevado</div>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="projects.html">Projects</a></li>
+				<li><a href="links.html">Links</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+			<div class="menu-btn">
+				<div class="menu-btn__burger"></div>
 			</div>
 		</div>
-	</div>
+	</nav>
 
-	<div id="image-modal" class="modal">
-		<div class="modal-content image-modal-content">
-			<span class="close-btn" id="image-close-btn">×</span>
-			<img id="modal-image" src="" alt="Demostración del Ejercicio">
+	<section class="hero-section">
+		<div class="hero-container reveal">
+			<img src="assets/foto.png" alt="Jaime Nevado" class="hero-img">
+			<div class="hero-text">
+				<h1>Hi, I'm Jaime.</h1>
+				<p>Welcome to my digital space. I'm a content creator and developer focused on building flying stuff and
+					making an impact on people.</p>
+			</div>
 		</div>
-	</div>
+	</section>
 
-	<script src="script.js"></script>
+	<main class="container">
+		<h2 class="section-title reveal">Some of my projects</h2>
+		<div class="project-grid">
+			<a href="projects/project-1.html" class="project-card reveal">
+				<img src="assets/projects/p1.jpg" alt="Project 1">
+				<div class="card-info">
+					<h3>YouTube Project</h3>
+					<p>Building a brand from scratch.</p>
+				</div>
+			</a>
+			<a href="projects/project-2.html" class="project-card reveal">
+				<img src="assets/projects/p2.jpg" alt="Project 2">
+				<div class="card-info">
+					<h3>Web Dev App</h3>
+					<p>Modern UI design system.</p>
+				</div>
+			</a>
+		</div>
+		<div class="center-btn">
+			<a href="projects.html" class="btn">View all projects</a>
+		</div>
+	</main>
+
+	<footer>
+		<p>by Jaime Nevado</p>
+	</footer>
+
+	<script src="js/main.js"></script>
 </body>
-
 
 </html>
