@@ -57,7 +57,20 @@ body {
 	font-weight: 600;
 	font-size: 1.2rem;
 	letter-spacing: -0.02em;
+
+	/* Estas dos líneas son la clave */
+	text-decoration: none !important;
+	/* Quita el subrayado por completo */
+	color: var(--text) !important;
+	/* Fuerza el color negro/oscuro que definimos */
+
+	transition: var(--transition);
 	cursor: pointer;
+}
+
+.logo:hover {
+	opacity: 0.7;
+	/* Un toque sutil para que el usuario sepa que es clickeable */
 }
 
 .nav-links {
