@@ -591,3 +591,255 @@ footer {
 		/* Título un poco más pequeño en móviles */
 	}
 }
+
+
+/* --- CONTACT PAGE STYLES --- */
+
+.contact-wrapper {
+	max-width: 600px;
+	margin: 0 auto;
+	padding-bottom: 100px;
+}
+
+.contact-form {
+	background: var(--card-bg);
+	padding: 40px;
+	border-radius: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.form-group label {
+	font-size: 0.9rem;
+	font-weight: 600;
+	margin-left: 5px;
+	color: var(--text);
+}
+
+.form-group input,
+.form-group textarea {
+	padding: 18px;
+	border-radius: 15px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background: #ffffff;
+	font-size: 1rem;
+	transition: var(--transition);
+	outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+	border-color: var(--accent);
+	box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+.btn-submit {
+	background: var(--text);
+	color: #fff;
+	padding: 18px;
+	border-radius: 15px;
+	border: none;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: var(--transition);
+	margin-top: 10px;
+}
+
+.btn-submit:hover {
+	background: var(--accent);
+	transform: scale(1.02);
+}
+
+/* Ajuste responsive para el formulario */
+@media (max-width: 768px) {
+	.contact-form {
+		padding: 25px;
+		border-radius: 20px;
+	}
+}
+
+/* --- PROJECTS PAGE SPECIFIC --- */
+
+.project-grid-main {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 40px;
+	margin-top: 50px;
+	padding-bottom: 80px;
+}
+
+.project-card-main {
+	text-decoration: none;
+	color: inherit;
+	display: flex;
+	flex-direction: column;
+	background: var(--card-bg);
+	border-radius: 30px;
+	overflow: hidden;
+	transition: var(--transition);
+	border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.project-card-main:hover {
+	transform: scale(1.02);
+	background: #ffffff;
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.project-img-wrapper {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	/* Formato panorámico para proyectos */
+	overflow: hidden;
+}
+
+.project-img-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.project-card-main:hover .project-img-wrapper img {
+	transform: scale(1.08);
+	/* Efecto de zoom suave al pasar el ratón */
+}
+
+.project-info-main {
+	padding: 30px;
+}
+
+.project-info-main .category-tag {
+	color: var(--accent);
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.project-info-main h3 {
+	font-size: 1.6rem;
+	margin-bottom: 12px;
+	letter-spacing: -0.03em;
+}
+
+.project-info-main p {
+	color: var(--gray);
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.project-grid-main {
+		grid-template-columns: 1fr;
+		/* Una columna en móvil */
+		gap: 25px;
+	}
+}
+
+/* --- PROJECT ARTICLE STYLES --- */
+
+.project-article {
+	max-width: 900px;
+	margin: 120px auto 0;
+	padding: 0 25px;
+}
+
+.project-header {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.project-header h1 {
+	font-size: clamp(2.5rem, 5vw, 4rem);
+	margin-top: 15px;
+}
+
+.project-lead {
+	font-size: 1.4rem;
+	color: var(--gray);
+	margin-top: 20px;
+	line-height: 1.4;
+}
+
+.main-project-img {
+	width: 100%;
+	border-radius: 30px;
+	overflow: hidden;
+	margin-bottom: 60px;
+}
+
+.main-project-img img {
+	width: 100%;
+	display: block;
+}
+
+.article-content h2 {
+	font-size: 2rem;
+	margin: 60px 0 20px;
+	letter-spacing: -0.02em;
+}
+
+.article-content p {
+	font-size: 1.15rem;
+	line-height: 1.7;
+	color: #333;
+	margin-bottom: 25px;
+}
+
+.image-row {
+	margin: 50px 0;
+	text-align: center;
+}
+
+.image-row img {
+	width: 100%;
+	border-radius: 20px;
+}
+
+.caption {
+	font-size: 0.9rem;
+	color: var(--gray);
+	margin-top: 15px;
+}
+
+blockquote {
+	border-left: 4px solid var(--accent);
+	padding-left: 30px;
+	font-size: 1.5rem;
+	font-style: italic;
+	margin: 60px 0;
+	color: var(--text);
+}
+
+.final-cta {
+	margin: 80px 0;
+	display: flex;
+	justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.project-article {
+		margin-top: 80px;
+	}
+
+	.project-lead {
+		font-size: 1.1rem;
+	}
+
+	blockquote {
+		font-size: 1.2rem;
+	}
+}

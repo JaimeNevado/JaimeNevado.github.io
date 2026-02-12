@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3D Printed Aircraft | Jaime Nevado</title>
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+	<nav class="navbar">
+		<div class="nav-content">
+			<a href="../index.html" class="logo">Jaime Nevado</a>
+
+			<ul class="nav-links" id="nav-menu">
+				<li><a href="../index.html">Home</a></li>
+				<li><a href="../projects.html">Projects</a></li>
+				<li><a href="../tools.html">Tools</a></li>
+				<li><a href="../links.html">Links</a></li>
+				<li><a href="../contact.html">Contact</a></li>
+			</ul>
+			<div class="menu-btn" id="menu-btn">
+				<div class="menu-btn__burger"></div>
+			</div>
+		</div>
+	</nav>
+
+	<article class="project-article reveal">
+		<header class="project-header">
+			<span class="category-tag">Aeronautics & 3D Printing</span>
+			<h1>Sally: The Journey of a Fully 3D Printed Plane</h1>
+			<p class="project-lead">Exploring the limits of additive manufacturing to create a high-performance RC
+				aircraft from scratch.</p>
+		</header>
+
+		<div class="main-project-img">
+			<img src="../assets/projects/fotoSally.png" alt="Sally RC Plane">
+		</div>
+
+		<div class="article-content">
+			<h2>The Challenge</h2>
+			<p>After a year of building several RC planes—from scratch-built experimental models to modified gliders—I
+				faced a persistent problem: durability and reliability. Seeking a more precise and repeatable
+				construction method, I delved into the world of 3D-printed aeronautics. The goal was clear: build the
+				best plane I’ve ever owned and, more importantly, bring it back home in one piece.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/imprimiendo.png" alt="3D Printing Process">
+				<p class="caption">The first of 60 parts being printed on a modified Ender 3.</p>
+			</div>
+
+			<h2>Manufacturing Process</h2>
+			<p>Without prior experience in printed planes, I chose a model from <strong>Eclipson</strong> and began a
+				non-stop printing marathon. The fuselage was printed using high-resistance PLA from <strong>Sakata
+					3D</strong>, ensuring structural integrity for the main body.</p>
+			<p>For the wings, weight was the priority. I opted for <strong>Lightweight PLA</strong>, which allowed me to
+				save 50% of the weight compared to standard filament. To counteract lift forces, the wings were
+				reinforced with three mandatory carbon fiber tubes, preventing upward bending during high-stress
+				maneuvers.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/piezas.png" alt="Assembly Process">
+			</div>
+
+			<h2>Integration & Electronics</h2>
+			<p>The assembly followed a rigorous PDF protocol, using specialized glues and steel reinforcements. A
+				critical addition was the custom landing gear, essential for ensuring safe returns. This five-channel
+				aircraft (elevator, ailerons, motor, rudder, and flaps) required a total of six servos.</p>
+
+			<blockquote>
+				"Engineering is about solving unexpected problems. When my recycled radio couldn't synchronize the
+				flaps, an Arduino-based signal inverter saved the mission."
+			</blockquote>
+
+			<p>One of the main technical hurdles was the flaps' synchronization. Due to my hardware limitations, I
+				designed an <strong>Arduino-based solution</strong> to read the receiver signal and invert it for the
+				corresponding servo, restoring full flap functionality.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/arduino.png" alt="Electronics and Arduino">
+				<p class="caption">Custom electronics bay and Arduino signal processing unit.</p>
+			</div>
+
+			<h2>Flight Results</h2>
+			<p>Christened as <strong>"Sally"</strong>, the aircraft underwent a strict pre-flight checklist at the local
+				airfield. The maiden flight was a success. The plane demonstrated exceptional stability and "floated"
+				through the air, capturing high-altitude footage through stripped-down action cameras integrated into
+				the fuselage.</p>
+			<p>This project proves that with precision manufacturing and creative problem-solving, high-end aeronautics
+				are accessible to the maker community.</p>
+
+
+			<div class="final-cta">
+				<a href="https://www.youtube.com/watch?v=Y7KirOqf5yE&t" target="_blank" class="btn">Watch Full Video on
+					YouTube</a>
+			</div>
+
+			<div class="image-row">
+				<a href="https://www.youtube.com/watch?v=Y7KirOqf5yE&t" target="_blank" rel="noopener noreferrer">
+					<img src="../assets/projects/despegue.png" alt="Sally's maiden flight">
+				</a>
+				<p class="caption">Sally's maiden flight.</p>
+			</div>
+
+
+
+
+
+		</div>
+	</article>
+
+	<footer>
+		<p>by Jaime Nevado</p>
+	</footer>
+
+	<script src="../js/main.js"></script>
+</body>
+
+</html>

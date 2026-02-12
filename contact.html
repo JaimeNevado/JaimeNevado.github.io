@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Links | Nevado</title>
+	<title>Contact | Jaime Nevado</title>
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -13,7 +13,6 @@
 	<nav class="navbar">
 		<div class="nav-content">
 			<a href="index.html" class="logo">Jaime Nevado</a>
-
 			<ul class="nav-links" id="nav-menu">
 				<li><a href="index.html">Home</a></li>
 				<li><a href="projects.html">Projects</a></li>
@@ -27,15 +26,35 @@
 		</div>
 	</nav>
 
-	<h4>
-		<br>
-		<br>
-		<br>
-		<br><br>
-		<br>
+	<main class="container reveal">
+		<header class="center-header">
+			<h1>Get in touch.</h1>
+			<p class="gray-text">Have a project in mind or just want to say hi? <br> Reach out and let's build something
+				great.</p>
+		</header>
 
-		Page under construction
-	</h4>
+		<section class="contact-wrapper">
+			<form action="https://formspree.io/f/xlgwrkyg" method="POST" class="contact-form">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" placeholder="Your name" required>
+				</div>
+
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" placeholder="email@example.com" required>
+				</div>
+
+				<div class="form-group">
+					<label for="message">Message</label>
+					<textarea id="message" name="message" rows="5" placeholder="Tell me about your project..."
+						required></textarea>
+				</div>
+
+				<button type="submit" class="btn-submit">Send Message</button>
+			</form>
+		</section>
+	</main>
 
 	<footer>
 		<p>by Jaime Nevado</p>

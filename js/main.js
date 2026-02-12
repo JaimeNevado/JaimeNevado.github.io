@@ -1,52 +1,44 @@
-// --- Lógica del Menú Hamburguesa ---
-const menuBtn = document.getElementById('menu-btn');
-const navMenu = document.getElementById('nav-menu');
-let menuOpen = false;
+// Esperamos a que todo el HTML esté cargado
+document.addEventListener('DOMContentLoaded', () => {
 
-menuBtn.addEventListener('click', () => {
-	if (!menuOpen) {
-		menuBtn.classList.add('open');
-		navMenu.classList.add('open');
-		menuOpen = true;
-	} else {
-		menuBtn.classList.remove('open');
-		navMenu.classList.remove('open');
-		menuOpen = false;
-	}
-});
+	// --- 1. LÓGICA DE REVELACIÓN (SCROLL) ---
+	const revealElements = document.querySelectorAll('.reveal');
 
-// Cerrar menú al hacer click en un enlace
-document.querySelectorAll('.nav-links a').forEach(link => {
-	link.addEventListener('click', () => {
-		menuBtn.classList.remove('open');
-		navMenu.classList.remove('open');
-		menuOpen = false;
+	const observerOptions = {
+		threshold: 0.1
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('active');
+			}
+		});
+	}, observerOptions);
+
+	revealElements.forEach(el => {
+		observer.observe(el);
 	});
-});
 
-// --- Lógica de Revelación (Hacer visible el contenido) ---
-const observerOptions = {
-	threshold: 0.1 // Se activa cuando el 10% del elemento es visible
-};
+	// --- 2. LÓGICA DEL MENÚ (CON PROTECCIÓN) ---
+	const menuBtn = document.getElementById('menu-btn');
+	const navMenu = document.getElementById('nav-menu');
 
-const observer = new IntersectionObserver((entries) => {
-	entries.forEach(entry => {
-		if (entry.isIntersecting) {
-			entry.target.classList.add('active');
-		}
-	});
-}, observerOptions);
+	// Solo si AMBOS existen en la página, añadimos el evento
+	if (menuBtn && navMenu) {
+		menuBtn.addEventListener('click', () => {
+			menuBtn.classList.toggle('open');
+			navMenu.classList.toggle('open');
+		});
 
-// Aplicar el observador a todos los elementos con la clase .reveal
-document.querySelectorAll('.reveal').forEach(el => {
-	observer.observe(el);
-});
-
-window.addEventListener('scroll', () => {
-	const scrollIndicator = document.querySelector('.scroll-indicator');
-	if (window.scrollY > 50) {
-		scrollIndicator.classList.add('fade-out');
+		// Cerrar menú al hacer click en un link
+		document.querySelectorAll('.nav-links a').forEach(link => {
+			link.addEventListener('click', () => {
+				menuBtn.classList.remove('open');
+				navMenu.classList.remove('open');
+			});
+		});
 	} else {
-		scrollIndicator.classList.remove('fade-out');
+		console.warn("Navegación no encontrada en esta página. Revisa los IDs 'menu-btn' y 'nav-menu'.");
 	}
 });
