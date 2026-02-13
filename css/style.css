@@ -843,3 +843,68 @@ blockquote {
 		font-size: 1.2rem;
 	}
 }
+
+/* 1. Hacemos que la tarjeta sea el punto de referencia */
+.product-card {
+	position: relative;
+	/* Importante para que el enlace no se salga de la tarjeta */
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	cursor: pointer;
+}
+
+/* 2. El truco del enlace estirado */
+.product-card .buy-link::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	/* Esto hace que cubra toda la tarjeta */
+}
+
+/* 3. Feedback visual para que el usuario sepa que es clicable */
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. Aseguramos que si hay otros botones o enlaces dentro, queden por encima */
+.product-card img,
+.product-card .category-tag {
+	position: relative;
+	z-index: 2;
+}
+
+/* Quita los estilos por defecto del enlace */
+.full-card-link {
+	text-decoration: none;
+	color: inherit;
+	/* Hereda el color de texto de tu web */
+	display: block;
+	/* Ocupa todo el espacio de la tarjeta */
+	height: 100%;
+}
+
+.product-card {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	border-radius: 12px;
+	/* O el radio que ya tengas */
+	overflow: hidden;
+}
+
+/* Efecto al pasar el ratón por cualquier parte de la tarjeta */
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para el "falso" enlace de abajo */
+.buy-link-text {
+	display: inline-block;
+	margin-top: 10px;
+	color: #007bff;
+	/* O tu color corporativo */
+	font-weight: bold;
+}
