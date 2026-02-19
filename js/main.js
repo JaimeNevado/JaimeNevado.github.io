@@ -17,7 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	}, observerOptions);
 
 	revealElements.forEach(el => {
+		// Le decimos al observador que vigile el elemento
 		observer.observe(el);
+
+		// FIX PARA EL VISOR 3D: Comprobamos si el elemento YA está en pantalla 
+		// al cargar la página y lo activamos manualmente sin esperar al scroll
+		const rect = el.getBoundingClientRect();
+		if (rect.top < window.innerHeight) {
+			// Le damos un ligerísimo retraso para asegurar que CSS ya ha pintado todo
+			setTimeout(() => {
+				el.classList.add('active');
+			}, 100);
+		}
 	});
 
 	// --- 2. LÓGICA DEL MENÚ (CON PROTECCIÓN) ---

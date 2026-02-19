@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Water Rocket & Flight Computer | Jaime Nevado</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+	<nav class="navbar">
+		<div class="nav-content">
+			<a href="../index.html" class="logo">Jaime Nevado</a>
+
+			<ul class="nav-links" id="nav-menu">
+				<li><a href="../index.html">Home</a></li>
+				<li><a href="../projects.html">Projects</a></li>
+				<li><a href="../tools.html">Tools</a></li>
+				<li><a href="../links.html">Links</a></li>
+				<li><a href="../contact.html">Contact</a></li>
+			</ul>
+			<div class="menu-btn" id="menu-btn">
+				<div class="menu-btn__burger"></div>
+			</div>
+		</div>
+	</nav>
+
+	<article class="project-article reveal">
+		<header class="project-header">
+			<span class="category-tag">Aerospace & Software Engineering</span>
+			<h1>Project Hydro: High-Pressure Water Rocketry</h1>
+			<p class="project-lead">Designing a composite-reinforced rocket with an Arduino-based flight computer for
+				apogee detection and data logging.</p>
+		</header>
+
+		<div class="main-project-img">
+			<img src="../assets/projects/clujRocket/ctaYoutube.png" alt="Water Rocket Project">
+		</div>
+
+		<div class="article-content">
+			<h2>The Vision</h2>
+			<p>Building water rockets has been a recurring hobby for me since 2017, but as a Software Engineering
+				student, I wanted to take it to the next level. The goal was no longer just to "make it fly," but to
+				apply engineering principles to create a reliable vehicle capable of recording flight data and deploying
+				a recovery system autonomously.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/clujRocket/diseno_ipad.png" alt="iPad Design Process">
+				<p class="caption">Initial design phases: from iPad sketching to 3D CAD modeling for the pressure
+					system.</p>
+			</div>
+
+			<h2>Ground Systems & Pressure</h2>
+			<p>A rocket is only as good as its launch system. I designed a custom PVC launcher capable of withstanding
+				over 6 bars of pressure. The main challenge was the connection mechanism. After several failed attempts
+				with zip ties and rubber gaskets, I pivoted to a <strong>high-flow garden quick-connect system</strong>.
+			</p>
+			<p>This solution not only provided a perfect seal but also ensured a massive water flow during the first
+				milliseconds of launch, preventing flight instability caused by low-diameter nozzles.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/clujRocket/lanzadera.png" alt="PVC Launcher Assembly">
+			</div>
+
+			<h2>Aerospace Materials: Fiberglass Reinforcement</h2>
+			<p>To reach higher altitudes, I needed a tank that wouldn't explode under high pressure. I used carbonated
+				water bottles (for their smooth aerodynamic surface) and reinforced them with <strong>fiberglass and
+					resin</strong>.</p>
+			<p>To ensure a perfect lamination, I built a custom <strong>rotary machine</strong> using a recycled
+				microwave motor and 3D printed parts. This kept the rocket spinning while the resin cured, achieving a
+				uniform and professional finish.</p>
+
+			<blockquote>
+				"In rocketry, every gram counts. I stripped down action cameras to their bare PCBs and sensors to save
+				weight, powering them directly from the flight computer's main battery."
+			</blockquote>
+
+
+			<h2>3D Printed Parachute Deployment Module</h2>
+			<p>To ensure a reliable recovery, the mechanical design of the payload bay had to be flawless. I designed
+				and 3D-printed a custom module to house the parachute and its deployment mechanism. This structural
+				piece was engineered to be as lightweight as possible while withstanding the high G-forces of the
+				launch.</p>
+			<p>The most complex part of this design was managing the space and weight distribution. The 3D-printed part
+				features a dedicated compartment for the parachute, utilizing a rubberband-loaded hatch
+				secured by the servomotor. Crucially, <strong>stacked directly on top of this parachute module</strong>
+				sits all the vital hardware: the flight computer, the stripped-down action camera, and the LiPo battery.
+				This stacked integration kept the center of gravity optimal and ensured the avionics were secure and
+				physically separated from the parachute ejection process. <a href="">Link to the STL file</a></p>
+
+			<div class="3d-model-container">
+				<model-viewer src="../assets/projects/clujRocket/paracaidas.glb"
+					alt="Modelo 3D del módulo del paracaídas" auto-rotate camera-controls
+					style="width: 100%; height: 400px; background-color: #ffffff; border-radius: 8px;">
+				</model-viewer>
+			</div>
+
+			<h2>The Brain: Arduino Flight Computer</h2>
+			<p>As a software developer, this is the heart of the project. I built a custom PCB around an <strong>Arduino
+					Nano</strong>. The system integrates a barometric sensor to calculate altitude in real-time and a
+				microSD module to log telemetry at 50 samples per second.</p>
+
+			<p>The software implements a state machine that detects the <strong>apogee</strong> (the highest point of
+				flight) by monitoring pressure changes. Once detected, the computer triggers a servomotor to release the
+				parachute deployment hatch.</p>
+
+			<div class="image-row">
+				<img src="../assets/projects/clujRocket/arduino_pcb.png" alt="Arduino Flight Computer">
+				<p class="caption">The custom-built flight computer featuring an RGB LED for error management and status
+					indication.</p>
+			</div>
+
+
+			<h2>Flight Data & Results</h2>
+			<p>During the maiden flights, the rocket reached a top speed of <strong>135 km/h</strong>. The telemetry
+				data confirmed that the apogee detection algorithm worked flawlessly, deploying the parachute at the
+				exact moment of zero vertical velocity. This project successfully bridged the gap between mechanical DIY
+				and professional systems engineering.</p>
+
+
+			<div class="final-cta">
+				<a href="https://www.youtube.com/watch?v=9I7HbnVaEWY" target="_blank" class="btn">Watch the Launch &
+					Telemetry</a>
+			</div>
+
+			<div class="image-row">
+				<a href="https://www.youtube.com/watch?v=9I7HbnVaEWY" target="_blank" rel="noopener noreferrer">
+					<img src="../assets/projects/clujRocket/miniatura.png" alt="Rocket Launch">
+				</a>
+			</div>
+
+		</div>
+	</article>
+
+	<footer>
+		<p>by Jaime Nevado</p>
+	</footer>
+
+	<script src="../js/main.js"></script>
+</body>
+
+</html>
