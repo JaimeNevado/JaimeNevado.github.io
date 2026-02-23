@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mi Horario Universitario</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			padding: 20px;
+			margin: 0;
+			background-color: #f8fafc;
+			color: #333;
+		}
+
+		h1 {
+			text-align: center;
+			color: #1e293b;
+			margin-bottom: 30px;
+		}
+
+		#calendario {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.semana-titulo {
+			font-size: 1.2em;
+			color: #475569;
+			margin: 30px 0 10px 0;
+			border-bottom: 2px solid #cbd5e1;
+			padding-bottom: 5px;
+		}
+
+		.semana-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 15px;
+			align-items: start;
+		}
+
+		.dia-columna {
+			background: #e2e8f0;
+			border-radius: 8px;
+			padding: 12px;
+			min-height: 150px;
+		}
+
+		.dia-columna.hoy {
+			background: #dbeafe;
+			border: 2px solid #bfdbfe;
+		}
+
+		.dia-titulo {
+			font-size: 1.05em;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 0;
+			margin-bottom: 12px;
+			color: #1e293b;
+			text-transform: capitalize;
+			border-bottom: 1px solid #cbd5e1;
+			padding-bottom: 8px;
+		}
+
+		/* Estilos Tarjetas Normales */
+		.event {
+			background: white;
+			border-left: 5px solid #3b82f6;
+			margin-bottom: 12px;
+			padding: 12px;
+			border-radius: 6px;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		}
+
+		.event h3 {
+			margin: 0 0 6px 0;
+			color: #0f172a;
+			font-size: 0.95em;
+			line-height: 1.2;
+		}
+
+		.details {
+			color: #475569;
+			font-size: 0.85em;
+			margin-bottom: 4px;
+			display: flex;
+			align-items: center;
+		}
+
+		.details i {
+			margin-right: 5px;
+			font-style: normal;
+		}
+
+		.carrera {
+			font-size: 0.75em;
+			color: #8b5cf6;
+			font-weight: bold;
+			margin-bottom: 4px;
+			display: block;
+		}
+
+		.en-curso {
+			border-left-color: #ef4444;
+			border-width: 6px;
+		}
+
+		/* ESTILOS: Solapamiento de clases */
+		.event.solapamiento {
+			border-left-color: #f59e0b;
+			background-color: #fffbeb;
+		}
+
+		.alerta-choque {
+			color: #d97706;
+			font-weight: bold;
+			font-size: 0.85em;
+			margin-bottom: 8px;
+			text-transform: uppercase;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.sub-evento {
+			border-left: 2px solid #fcd34d;
+			padding-left: 8px;
+			margin-bottom: 10px;
+		}
+
+		.sub-evento:last-child {
+			margin-bottom: 0;
+		}
+
+		.sub-evento h4 {
+			margin: 3px 0;
+			color: #1e293b;
+			font-size: 0.9em;
+		}
+
+		.sin-clases {
+			text-align: center;
+			font-size: 0.9em;
+			color: #64748b;
+			font-style: italic;
+			margin-top: 20px;
+		}
+
+		.loading {
+			text-align: center;
+			font-style: italic;
+			color: #64748b;
+			font-size: 1.2em;
+		}
+
+		@media (max-width: 992px) {
+			.semana-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.dia-columna {
+				min-height: auto;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>📅 Mi Horario</h1>
+	<div id="calendario">
+		<p class="loading">Cargando clases...</p>
+	</div>
+
+	<script>
+		const CALENDAR_KEY = 'ksfogsn8nf72mjdfcv';
+		const API_TOKEN = '8b32fc54e35c7e75b42e69001e10a5faa1bb72ab5a407a365b3ac5264ff9095c';
+
+		const misAsignaturas = [
+			{ titulo: "Cálculo", plan: "PLAN 2023 Ing. Infor.", curso: "Primero - C" },
+			{ titulo: "Álgebra", plan: "PLAN 2023 Ing. Infor.", curso: "Primero - C" },
+			{ titulo: "Estructuras Algebraicas", plan: "PLAN 2023 Ing. Infor.", curso: "Primero - C" },
+			{ titulo: "Teoría de Autómatas", plan: "PLAN 2023 Ing. Software", curso: "2. Segundo - A" },
+			{ titulo: "Fundamentos de Inteligencia Artificial", plan: "PLAN 2023 Ing. Software", curso: "2. Segundo - A" }
+		];
+
+		// --- CÁLCULO DINÁMICO CON SALTO DE FIN DE SEMANA ---
+		const hoy = new Date();
+		const lunesSemanaActual = new Date(hoy);
+		const diaSemana = hoy.getDay() || 7;
+
+		// Si es sábado (6) o domingo (7), saltamos al próximo lunes
+		if (diaSemana > 5) {
+			lunesSemanaActual.setDate(hoy.getDate() + (8 - diaSemana));
+		} else {
+			// Si es de lunes a viernes, empezamos en el lunes de esta semana
+			lunesSemanaActual.setDate(hoy.getDate() - diaSemana + 1);
+		}
+
+		lunesSemanaActual.setHours(0, 0, 0, 0);
+
+		const formatDate = (d) => {
+			const mes = String(d.getMonth() + 1).padStart(2, '0');
+			const dia = String(d.getDate()).padStart(2, '0');
+			return `${d.getFullYear()}-${mes}-${dia}`;
+		};
+
+		const fechaInicioAPI = formatDate(lunesSemanaActual);
+
+		// Pedimos 5 semanas desde la fecha calculada
+		const fechaFinObj = new Date(lunesSemanaActual);
+		fechaFinObj.setDate(lunesSemanaActual.getDate() + 34);
+		const fechaFinAPI = formatDate(fechaFinObj);
+
+		async function cargarHorario() {
+			try {
+				const resSubcalendarios = await fetch(`https://api.teamup.com/${CALENDAR_KEY}/subcalendars`, { headers: { 'Teamup-Token': API_TOKEN } });
+				const resEventos = await fetch(`https://api.teamup.com/${CALENDAR_KEY}/events?startDate=${fechaInicioAPI}&endDate=${fechaFinAPI}`, { headers: { 'Teamup-Token': API_TOKEN } });
+
+				if (!resSubcalendarios.ok || !resEventos.ok) throw new Error('Error de conexión');
+
+				const dataSubcalendarios = await resSubcalendarios.json();
+				const dataEventos = await resEventos.json();
+				const listaCarpetas = dataSubcalendarios.subcalendars;
+
+				let eventosValidos = dataEventos.events.filter(evento => {
+					const finEvento = new Date(evento.end_dt);
+					if (finEvento <= hoy) return false;
+
+					return misAsignaturas.some(regla => {
+						if (!evento.title.toLowerCase().includes(regla.titulo.toLowerCase())) return false;
+						return evento.subcalendar_ids.some(id => {
+							const subcal = listaCarpetas.find(s => s.id === id);
+							if (!subcal) return false;
+							const texto = ((subcal.folder || '') + ' ' + (subcal.name || '')).toLowerCase();
+							return texto.includes(regla.plan.toLowerCase()) && texto.includes(regla.curso.toLowerCase());
+						});
+					});
+				});
+
+				// Unificar duplicados de ubicaciones
+				const eventosUnicos = [];
+				eventosValidos.forEach(evento => {
+					const indice = eventosUnicos.findIndex(e => e.title === evento.title && e.start_dt === evento.start_dt);
+					if (indice > -1 && evento.location) {
+						const locAct = eventosUnicos[indice].location || '';
+						if (!locAct.includes(evento.location)) eventosUnicos[indice].location += ' / ' + evento.location;
+					} else if (indice === -1) {
+						eventosUnicos.push({ ...evento });
+					}
+				});
+
+				// Crear esqueleto de 5 semanas (25 días laborables)
+				const calendarioEstructura = [];
+				for (let s = 0; s < 5; s++) {
+					const semana = { id: s, dias: [] };
+					for (let d = 0; d < 5; d++) {
+						const fechaDia = new Date(lunesSemanaActual);
+						fechaDia.setDate(lunesSemanaActual.getDate() + (s * 7) + d);
+						semana.dias.push({ fechaOriginal: fechaDia, fechaCadena: formatDate(fechaDia), eventos: [] });
+					}
+					calendarioEstructura.push(semana);
+				}
+
+				eventosUnicos.forEach(evento => {
+					const fechaEv = formatDate(new Date(evento.start_dt));
+					for (let semana of calendarioEstructura) {
+						let diaEncontrado = semana.dias.find(d => d.fechaCadena === fechaEv);
+						if (diaEncontrado) { diaEncontrado.eventos.push(evento); break; }
+					}
+				});
+
+				const container = document.getElementById('calendario');
+				container.innerHTML = '';
+				const hoyString = formatDate(hoy);
+
+				calendarioEstructura.forEach((semana) => {
+					const tituloSemana = document.createElement('div');
+					tituloSemana.className = 'semana-titulo';
+					const fInicio = semana.dias[0].fechaOriginal.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+					const fFin = semana.dias[4].fechaOriginal.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+					tituloSemana.innerHTML = `Semana del ${fInicio} al ${fFin}`;
+					container.appendChild(tituloSemana);
+
+					const grid = document.createElement('div');
+					grid.className = 'semana-grid';
+
+					semana.dias.forEach(dia => {
+						const divDia = document.createElement('div');
+						divDia.className = `dia-columna ${dia.fechaCadena === hoyString ? 'hoy' : ''}`;
+
+						const nombreDia = dia.fechaOriginal.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' });
+						divDia.innerHTML = `<h2 class="dia-titulo">${nombreDia}</h2>`;
+
+						dia.eventos.sort((a, b) => new Date(a.start_dt) - new Date(b.start_dt));
+
+						if (dia.eventos.length === 0) {
+							divDia.innerHTML += `<div class="sin-clases">${dia.fechaOriginal < hoy && dia.fechaCadena !== hoyString ? '-' : 'Libre 🎉'}</div>`;
+						} else {
+							// MAGIA ANTI-SOLAPAMIENTOS
+							const eventosAgrupados = [];
+							dia.eventos.forEach(evento => {
+								if (eventosAgrupados.length === 0) {
+									eventosAgrupados.push([evento]);
+								} else {
+									const ultimoGrupo = eventosAgrupados[eventosAgrupados.length - 1];
+									const maxEndDt = new Date(Math.max(...ultimoGrupo.map(e => new Date(e.end_dt))));
+
+									if (new Date(evento.start_dt) < maxEndDt) {
+										ultimoGrupo.push(evento);
+									} else {
+										eventosAgrupados.push([evento]);
+									}
+								}
+							});
+
+							eventosAgrupados.forEach(grupo => {
+								const divClase = document.createElement('div');
+
+								if (grupo.length === 1) {
+									const evento = grupo[0];
+									const inicio = new Date(evento.start_dt);
+									const fin = new Date(evento.end_dt);
+									const enCurso = (hoy >= inicio && hoy <= fin) ? 'en-curso' : '';
+									divClase.className = `event ${enCurso}`;
+
+									const horaInicioStr = inicio.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+									const horaFinStr = fin.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+									const etiquetaPlan = evento.title.toLowerCase().includes('autómata') || evento.title.toLowerCase().includes('inteligencia')
+										? 'Ing. Software (2ºA)' : 'Ing. Informática (1ºC)';
+
+									divClase.innerHTML = `
+                                        <span class="carrera">${etiquetaPlan}</span>
+                                        <h3>${evento.title}</h3>
+                                        <div class="details"><i>🕒</i> ${horaInicioStr} - ${horaFinStr} ${enCurso ? '<b style="color:#ef4444; margin-left:5px;">(Ahora)</b>' : ''}</div>
+                                        ${evento.location ? `<div class="details"><i>📍</i> ${evento.location}</div>` : ''}
+                                    `;
+								} else {
+									divClase.className = 'event solapamiento';
+									let htmlContent = `<div class="alerta-choque">⚠️ Choque de horarios</div>`;
+
+									grupo.forEach(evento => {
+										const inicio = new Date(evento.start_dt);
+										const fin = new Date(evento.end_dt);
+										const horaInicioStr = inicio.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+										const horaFinStr = fin.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+										const etiquetaPlan = evento.title.toLowerCase().includes('autómata') || evento.title.toLowerCase().includes('inteligencia')
+											? 'Ing. Software (2ºA)' : 'Ing. Informática (1ºC)';
+
+										htmlContent += `
+                                            <div class="sub-evento">
+                                                <span class="carrera">${etiquetaPlan}</span>
+                                                <h4>${evento.title}</h4>
+                                                <div class="details"><i>🕒</i> ${horaInicioStr} - ${horaFinStr}</div>
+                                                ${evento.location ? `<div class="details"><i>📍</i> ${evento.location}</div>` : ''}
+                                            </div>
+                                        `;
+									});
+									divClase.innerHTML = htmlContent;
+								}
+								divDia.appendChild(divClase);
+							});
+						}
+						grid.appendChild(divDia);
+					});
+					container.appendChild(grid);
+				});
+
+			} catch (error) {
+				console.error(error);
+				document.getElementById('calendario').innerHTML = '<p style="color:red; text-align:center;">Error al cargar. Asegúrate de poner tu API Token.</p>';
+			}
+		}
+
+		cargarHorario();
+	</script>
+</body>
+
+</html>
