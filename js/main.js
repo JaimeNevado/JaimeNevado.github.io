@@ -60,8 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	const isTikTok = ua.indexOf('TikTok') > -1;
 	const isFB = ua.indexOf('FBAN') > -1 || ua.indexOf('FBAV') > -1;
 
-	// Si detecta que está dentro de una de estas apps, muestra el aviso
 	if (isInstagram || isTikTok || isFB) {
-		document.getElementById('tiktok-notice').style.display = 'block';
+		const notice = document.getElementById('tiktok-notice');
+		if (notice) {
+			// Usamos !important en línea para saltarnos el CSS
+			notice.style.setProperty('display', 'block', 'important');
+		}
 	}
 });
