@@ -909,28 +909,3 @@ blockquote {
 	/* O tu color corporativo */
 	font-weight: bold;
 }
-
-/* --- Aviso solo para dispositivos móviles --- */
-.mobile-app-notice {
-	display: none;
-	/* Empezamos ocultos siempre */
-	background: #fdf2f2;
-	border: 1px solid #ff4747;
-	border-radius: 8px;
-	padding: 12px;
-	margin-bottom: 20px;
-	max-width: 400px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.notice-content p {
-	margin: 0;
-	font-size: 0.85rem;
-	color: #333;
-	line-height: 1.4;
-}
-
-.notice-content b {
-	color: #ff4747;
-}
