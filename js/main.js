@@ -53,3 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.warn("Navegación no encontrada en esta página. Revisa los IDs 'menu-btn' y 'nav-menu'.");
 	}
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+	const ua = navigator.userAgent || navigator.vendor || window.opera;
+	const isInstagram = ua.indexOf('Instagram') > -1;
+	const isTikTok = ua.indexOf('TikTok') > -1;
+	const isFB = ua.indexOf('FBAN') > -1 || ua.indexOf('FBAV') > -1;
+
+	// Si detecta que está dentro de una de estas apps, muestra el aviso
+	if (isInstagram || isTikTok || isFB) {
+		document.getElementById('tiktok-notice').style.display = 'block';
+	}
+});
