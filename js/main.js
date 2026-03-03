@@ -53,3 +53,31 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.warn("Navegación no encontrada en esta página. Revisa los IDs 'menu-btn' y 'nav-menu'.");
 	}
 });
+
+
+const contactForm = document.querySelector('.contact-form');
+const popup = document.getElementById('success-popup');
+
+if (contactForm) {
+	contactForm.addEventListener('submit', async (e) => {
+		e.preventDefault(); // Evita que abra la web de Formspree
+
+		const data = new FormData(contactForm);
+		const response = await fetch(contactForm.action, {
+			method: 'POST',
+			body: data,
+			headers: { 'Accept': 'application/json' }
+		});
+
+		if (response.ok) {
+			popup.style.display = 'flex'; // Muestra tu popup
+			contactForm.reset(); // Limpia el formulario
+		} else {
+			alert('Oops! There was a problem sending your message.');
+		}
+	});
+}
+
+function closePopup() {
+	popup.style.display = 'none';
+}

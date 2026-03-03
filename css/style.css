@@ -909,3 +909,41 @@ blockquote {
 	/* O tu color corporativo */
 	font-weight: bold;
 }
+
+/* css/style.css */
+
+.popup-overlay {
+	/* Mantenemos el posicionamiento fijo para que no se mueva al hacer scroll */
+	position: fixed;
+	/* Forzamos a que empiece en la esquina superior izquierda absoluta de la ventana */
+	top: 0;
+	left: 0;
+	/* Usamos unidades de viewport para garantizar cobertura total de la ventana */
+	width: 100vw;
+	height: 100vh;
+	/* Un color de fondo oscuro con opacidad para el efecto de oscurecimiento */
+	background-color: rgba(0, 0, 0, 0.7);
+	/* Centrado del contenido del popup */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* Un z-index alto para asegurarnos de que esté por encima de TODO (menú, footer, etc.) */
+	z-index: 99999;
+	/* Efecto opcional de desenfoque del fondo (no funciona en navegadores muy antiguos) */
+	backdrop-filter: blur(5px);
+}
+
+.popup-content {
+	background: white;
+	padding: 2rem;
+	border-radius: 15px;
+	text-align: center;
+	max-width: 400px;
+	width: 90%;
+	/* Aseguramos que el contenido en sí tenga sombra para destacar */
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	/* Mantenemos la animación de entrada */
+	animation: slideUp 0.3s ease-out;
+}
+
+/* El resto de tus estilos para .popup-icon y la animación @keyframes slideUp permanecen igual */

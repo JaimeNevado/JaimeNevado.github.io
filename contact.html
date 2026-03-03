@@ -54,11 +54,22 @@
 				<button type="submit" class="btn-submit">Send Message</button>
 			</form>
 		</section>
+
+
 	</main>
 
 	<footer>
 		<p>by Jaime Nevado</p>
 	</footer>
+
+	<div id="success-popup" class="popup-overlay" style="display:none;">
+		<div class="popup-content">
+			<div class="popup-icon">✅</div>
+			<h2>Message Sent!</h2>
+			<p>Thanks for reaching out. I'll get back to you soon.</p>
+			<button onclick="closePopup()" class="btn-submit">Close</button>
+		</div>
+	</div>
 
 	<script src="js/main.js"></script>
 </body>
