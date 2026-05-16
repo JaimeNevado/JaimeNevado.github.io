@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Placas NFC | Jaime Nevado</title>
 	<style>
-		/* ── VARIABLES (idénticas a style.css) ── */
 		:root {
 			--bg: #ffffff;
 			--text: #1d1d1f;
@@ -32,7 +31,7 @@
 			-webkit-font-smoothing: antialiased;
 		}
 
-		/* ── NAVBAR (idéntico a style.css) ── */
+		/* ── NAVBAR ── */
 		.navbar {
 			position: fixed;
 			top: 0;
@@ -89,7 +88,6 @@
 			color: var(--accent);
 		}
 
-		/* Hamburger */
 		.menu-btn {
 			position: relative;
 			display: none;
@@ -142,7 +140,7 @@
 			transform: rotate(-45deg) translate(35px, 35px);
 		}
 
-		/* ── REVEAL (idéntico a style.css — clase .active) ── */
+		/* ── REVEAL ── */
 		.reveal {
 			opacity: 0;
 			transform: translateY(40px);
@@ -154,7 +152,7 @@
 			transform: translateY(0);
 		}
 
-		/* ── BUTTONS (píldora Apple idéntica) ── */
+		/* ── BUTTONS ── */
 		.btn {
 			padding: 12px 25px;
 			background: var(--text);
@@ -192,14 +190,14 @@
 			transform: scale(1.03);
 		}
 
-		/* ── CONTAINER (idéntico a style.css) ── */
+		/* ── CONTAINER ── */
 		.container {
 			padding: 80px 5%;
 			max-width: 1200px;
 			margin: 0 auto;
 		}
 
-		/* ── SECTION TYPOGRAPHY ── */
+		/* ── TYPOGRAPHY ── */
 		.section-title {
 			font-size: clamp(1.8rem, 3vw, 2.5rem);
 			letter-spacing: -0.03em;
@@ -226,7 +224,7 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 80px 5% 80px;
+			padding: 80px 5% 120px;
 			text-align: center;
 			position: relative;
 		}
@@ -276,29 +274,17 @@
 			margin-top: 28px;
 		}
 
-		/* Hero gallery — horizontal strip, compact on desktop */
-		.hero-gallery {
-			display: grid;
-			grid-template-columns: 1fr 1.3fr 1fr;
-			gap: 10px;
-			align-items: end;
+		/* Hero single image (solo la cenital en desktop también simplificado) */
+		.hero-img-wrap {
 			width: 100%;
-			max-width: 780px;
-			margin: 44px auto 0;
-		}
-
-		.hg-item {
-			border-radius: 20px;
+			max-width: 600px;
+			margin: 40px auto 0;
+			border-radius: 24px;
 			overflow: hidden;
-			background: var(--card-bg);
-			aspect-ratio: 4/5;
+			aspect-ratio: 4/3;
 		}
 
-		.hg-item.tall {
-			aspect-ratio: 3/4.5;
-		}
-
-		.hg-item img {
+		.hero-img-wrap img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
@@ -306,11 +292,11 @@
 			transition: transform 0.5s ease;
 		}
 
-		.hg-item:hover img {
-			transform: scale(1.04);
+		.hero-img-wrap:hover img {
+			transform: scale(1.03);
 		}
 
-		/* Scroll indicator (idéntico a style.css) */
+		/* Scroll indicator */
 		.scroll-indicator {
 			position: absolute;
 			bottom: 28px;
@@ -359,26 +345,6 @@
 				transform: translateY(5px);
 				opacity: 0.4;
 			}
-		}
-
-		/* Placeholder de imagen */
-		.img-ph {
-			width: 100%;
-			height: 100%;
-			min-height: 120px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			gap: 8px;
-			color: var(--gray);
-			font-size: 0.68rem;
-			letter-spacing: 0.05em;
-			text-transform: uppercase;
-		}
-
-		.img-ph svg {
-			opacity: 0.25;
 		}
 
 		/* ── HOW IT WORKS ── */
@@ -432,6 +398,7 @@
 		.gallery-grid {
 			display: grid;
 			grid-template-columns: repeat(12, 1fr);
+			grid-template-rows: 340px auto;
 			gap: 10px;
 		}
 
@@ -467,11 +434,12 @@
 		.gc3,
 		.gc4,
 		.gc5 {
-			grid-column: span 4;
-			grid-row: 2;
+			width: calc(50% - 4px);
 			aspect-ratio: 1;
+			grid-row: unset;
 		}
 
+		/* Features */
 		.features-row {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
@@ -555,7 +523,7 @@
 			margin-top: 4px;
 		}
 
-		/* ── PROOF / STATS ── */
+		/* ── PROOF ── */
 		.proof-wrap {
 			background: var(--text);
 			color: #fff;
@@ -625,13 +593,16 @@
 
 		.mb-tag {
 			position: absolute;
-			top: -20px;
+			top: -22px;
 			left: 50%;
 			transform: translateX(-50%);
 			font-size: 0.64rem;
 			color: #34C759;
 			white-space: nowrap;
 			font-weight: 700;
+			background: rgba(0, 0, 0, 0.4);
+			padding: 2px 6px;
+			border-radius: 4px;
 		}
 
 		.chart-months {
@@ -649,60 +620,6 @@
 
 		.cm.hi {
 			color: #34C759;
-		}
-
-		.bar-rows {
-			margin-top: 18px;
-			display: flex;
-			flex-direction: column;
-			gap: 12px;
-		}
-
-		.bar-row {
-			display: flex;
-			flex-direction: column;
-			gap: 5px;
-		}
-
-		.bm {
-			display: flex;
-			justify-content: space-between;
-			font-size: 0.75rem;
-		}
-
-		.bl {
-			color: rgba(255, 255, 255, 0.45);
-		}
-
-		.bv {
-			font-weight: 600;
-		}
-
-		.btrack {
-			height: 5px;
-			background: rgba(255, 255, 255, 0.1);
-			border-radius: 999px;
-			overflow: hidden;
-		}
-
-		.bfill {
-			height: 100%;
-			border-radius: 999px;
-		}
-
-		.bfill.before {
-			background: rgba(255, 255, 255, 0.25);
-		}
-
-		.bfill.after {
-			background: #34C759;
-			animation: growBar 1.4s cubic-bezier(0.2, 1, 0.3, 1) both;
-		}
-
-		@keyframes growBar {
-			from {
-				width: 0 !important;
-			}
 		}
 
 		/* ── PRICING ── */
@@ -881,7 +798,7 @@
 			margin-top: 2px;
 		}
 
-		/* ── FAQ (idéntico al proyecto) ── */
+		/* ── FAQ ── */
 		.faq-list {
 			border-top: 1px solid rgba(0, 0, 0, 0.08);
 		}
@@ -985,7 +902,7 @@
 			gap: 6px;
 		}
 
-		/* ── FOOTER (idéntico a style.css) ── */
+		/* ── FOOTER ── */
 		footer {
 			padding: 80px 20px;
 			text-align: center;
@@ -1036,7 +953,7 @@
 			color: #fff;
 		}
 
-		/* ── RESPONSIVE TABLET 768–1024px ── */
+		/* ── TABLET ── */
 		@media (max-width: 1024px) {
 			.models-grid {
 				grid-template-columns: repeat(2, 1fr);
@@ -1047,10 +964,10 @@
 			}
 		}
 
-		/* ── RESPONSIVE MOBILE ── */
+		/* ── MOBILE ── */
 		@media (max-width: 768px) {
 
-			/* Hamburger */
+			/* Nav */
 			.menu-btn {
 				display: flex;
 			}
@@ -1081,129 +998,131 @@
 
 			/* Hero */
 			.hero-section {
-				padding: 72px 5% 72px;
+				padding: 80px 5% 80px;
+				min-height: auto;
 			}
 
 			.hero-section h1 {
 				font-size: clamp(2rem, 9vw, 3rem);
 			}
 
-			.hero-gallery {
-				.hero-gallery {
-					grid-template-columns: 1fr 1.2fr;
-					max-width: 100%;
-					margin-top: 32px;
-				}
-
-				.hero-gallery .hg-item:last-child {
-					display: none;
-				}
-
-				.hero-gallery .hg-item {
-					aspect-ratio: 4/5;
-				}
-
-				.hero-gallery .hg-item.tall {
-					aspect-ratio: 4/5;
-				}
-
-				.scroll-indicator {
-					position: static;
-					transform: none;
-					margin-top: 32px;
-				}
-
-				/* Grids → 1 col */
-				.steps-grid {
-					grid-template-columns: 1fr;
-					gap: 12px;
-				}
-
-				.pricing-grid {
-					grid-template-columns: 1fr;
-				}
-
-				.t-grid {
-					grid-template-columns: 1fr;
-				}
-
-				.proof-wrap {
-					grid-template-columns: 1fr;
-					padding: 36px 26px;
-					gap: 28px;
-				}
-
-				.features-row {
-					grid-template-columns: 1fr 1fr;
-				}
-
-				.models-grid {
-					grid-template-columns: 1fr 1fr;
-				}
-
-				/* Gallery */
-				.gallery-grid {
-					display: flex;
-					flex-wrap: wrap;
-					gap: 8px;
-				}
-
-				.gc {
-					width: calc(50% - 4px);
-					aspect-ratio: 1;
-					border-radius: 16px;
-					grid-row: unset;
-				}
-
-				.gc1 {
-					width: 100%;
-					aspect-ratio: 16/9;
-				}
-
-				.gc2 {
-					width: calc(50% - 4px);
-					aspect-ratio: 1;
-				}
-
-				/* Container */
-				.container {
-					padding: 56px 5%;
-				}
-
-				.section-title {
-					margin-bottom: 28px;
-				}
-
-				/* CTA */
-				.cta-block {
-					padding: 48px 22px;
-					margin-bottom: 60px;
-					border-radius: 22px;
-				}
-
-				/* Pricing */
-				.price-card {
-					border-radius: 22px;
-				}
+			.hero-img-wrap {
+				max-width: 100%;
+				aspect-ratio: 4/3;
+				margin-top: 32px;
+				border-radius: 18px;
 			}
 
-			@media (max-width: 480px) {
-				.features-row {
-					grid-template-columns: 1fr;
-				}
-
-				.hero-cta {
-					flex-direction: column;
-					align-items: center;
-				}
-
-				.hero-cta .btn,
-				.hero-cta .btn-outline {
-					width: 100%;
-					max-width: 300px;
-					text-align: center;
-				}
+			/* Scroll indicator: fluye tras la imagen en móvil */
+			.scroll-indicator {
+				position: static;
+				transform: none;
+				margin-top: 32px;
 			}
+
+			/* Steps: 1 columna */
+			.steps-grid {
+				grid-template-columns: 1fr;
+				gap: 12px;
+			}
+
+			/* Gallery: flex wrap */
+			.gallery-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+
+			.gc {
+				border-radius: 14px;
+				grid-row: unset;
+				grid-column: unset;
+				aspect-ratio: 1;
+				width: calc(50% - 4px);
+			}
+
+			.gc1 {
+				width: 100%;
+				aspect-ratio: 16/9;
+			}
+
+			/* Features */
+			.features-row {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			/* Models */
+			.models-grid {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			/* Proof */
+			.proof-wrap {
+				grid-template-columns: 1fr;
+				padding: 36px 26px;
+				gap: 28px;
+			}
+
+			/* Pricing: 1 columna */
+			.pricing-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.price-card {
+				border-radius: 22px;
+			}
+
+			/* Testimonials: 1 columna */
+			.t-grid {
+				grid-template-columns: 1fr;
+			}
+
+			/* Container */
+			.container {
+				padding: 56px 5%;
+			}
+
+			.section-title {
+				margin-bottom: 28px;
+			}
+
+			/* CTA */
+			.cta-block {
+				padding: 48px 22px;
+				margin-bottom: 60px;
+				border-radius: 22px;
+			}
+
+			.steps-grid {
+				grid-template-columns: 1fr;
+				gap: 12px;
+			}
+
+			.pricing-grid {
+				grid-template-columns: 1fr;
+			}
+
+		}
+
+		@media (max-width: 480px) {
+			.features-row {
+				grid-template-columns: 1fr;
+			}
+
+			.hero-cta {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.hero-cta .btn,
+			.hero-cta .btn-outline {
+				width: 100%;
+				max-width: 300px;
+				text-align: center;
+			}
+
+
+		}
 	</style>
 </head>
 
@@ -1242,41 +1161,11 @@
 			<a href="#galeria" class="btn-outline">Ver fotos reales</a>
 		</div>
 
-		<!-- Gallery strip — sustituye img-ph por <img src="tu-foto.jpg"> cuando tengas fotos -->
-		<div class="hero-gallery reveal">
-			<div class="hg-item">
-				<img src="fotosPlacas/fotobarra.jpg" alt="Placa en barra"
-					style="width: 100%; height: 100%; object-fit: cover;">
-				<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.4" />
-					<circle cx="8.5" cy="8.5" r="1.5" stroke-width="1.4" />
-					<path d="M21 15l-5-5L5 21" stroke-width="1.4" />
-				</svg>
-				<span>Placa · lateral</span>
-
-			</div>
-			<div class="hg-item tall">
-				<img src="fotosPlacas/cenital.jpg" alt="Placas vistas desde arriba" <svg width="34" height="34"
-					fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.4" />
-				<circle cx="8.5" cy="8.5" r="1.5" stroke-width="1.4" />
-				<path d="M21 15l-5-5L5 21" stroke-width="1.4" />
-				</svg>
-				<span>Placa en barra</span>
-
-			</div>
-			<div class="hg-item">
-				<img src="fotosPlacas/textura.jpg" alt="Detalle relieve de la placa" <svg width="28" height="28"
-					fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<rect x="3" y="3" width="18" height="18" rx="2" stroke-width="1.4" />
-				<circle cx="8.5" cy="8.5" r="1.5" stroke-width="1.4" />
-				<path d="M21 15l-5-5L5 21" stroke-width="1.4" />
-				</svg>
-				<span>Scan con iPhone</span>
-
-			</div>
+		<!-- Solo la foto cenital -->
+		<div class="hero-img-wrap reveal">
+			<img src="fotosPlacas/cenital.png" alt="Placas NFC vista cenital">
 		</div>
-		<br>
+
 		<div class="scroll-indicator">
 			<span>Saber más</span>
 			<div class="arrow-scroll"></div>
@@ -1297,8 +1186,7 @@
 					</svg>
 				</div>
 				<h3>Ponla en la mesa</h3>
-				<p>Cuando ves que una mesa ha disfrutado, llévales
-					la placa junto con la cuenta.</p>
+				<p>Cuando ves que una mesa ha disfrutado, llévales la placa junto con la cuenta.</p>
 			</div>
 			<div class="step-card reveal">
 				<span class="step-num">PASO 02</span>
@@ -1333,33 +1221,23 @@
 		<h2 class="section-title reveal">Diseñadas para durar toda la vida.</h2>
 
 		<div class="gallery-grid reveal">
-
 			<div class="gc gc1" onclick="openLb(this)">
-				<img src="fotosPlacas/placaBarra.jpg" alt="Placa en barra de restaurante"
-					style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+				<img src="fotosPlacas/placaBarra.jpg" alt="Placa en barra de restaurante">
 			</div>
-
 			<div class="gc gc2" onclick="openLb(this)">
-				<img src="fotosPlacas/vistaCenital.jpg" alt="Vista cenital"
-					style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+				<img src="fotosPlacas/vistaCenital.jpg" alt="Vista cenital">
 			</div>
-
 			<div class="gc gc3" onclick="openLb(this)">
-				<img src="fotosPlacas/detalleRelieve.jpg" alt="Detalle del relieve"
-					style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+				<img src="fotosPlacas/detalleRelieve.jpg" alt="Detalle del relieve">
 			</div>
-
 			<div class="gc gc4" onclick="openLb(this)">
-				<img src="fotosPlacas/placaMesa.jpg" alt="Placa en mesa"
-					style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+				<img src="fotosPlacas/placaMesa.jpg" alt="Placa en mesa">
 			</div>
-
 			<div class="gc gc5" onclick="openLb(this)">
-				<img src="fotosPlacas/scanMovil.jpg" alt="Scan con móvil"
-					style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+				<img src="fotosPlacas/scanMovil.jpg" alt="Scan con móvil">
 			</div>
-
 		</div>
+
 		<div class="features-row reveal">
 			<div class="feature-card">
 				<span class="feature-emoji">🔋</span>
@@ -1389,54 +1267,45 @@
 		<span class="section-label reveal">Los modelos</span>
 		<h2 class="section-title reveal">Google y TripAdvisor, en dos idiomas.</h2>
 		<div class="models-grid reveal">
-
 			<div class="model-card">
 				<div class="model-preview">
-					<img src="fotosPlacas/modeloGoogleES.jpg" alt="Placa Google Español"
-						style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block;">
+					<img src="fotosPlacas/modeloGoogleES.jpg" alt="Placa Google Español">
 				</div>
 				<p class="model-platform">Google Reseñas</p>
 				<p class="model-name">Español 🇪🇸</p>
 			</div>
-
 			<div class="model-card">
 				<div class="model-preview">
-					<img src="fotosPlacas/modeloGoogleEN.jpg" alt="Placa Google Inglés"
-						style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block;">
+					<img src="fotosPlacas/modeloGoogleEN.jpg" alt="Placa Google Inglés">
 				</div>
 				<p class="model-platform">Google Reviews</p>
 				<p class="model-name">English 🇬🇧</p>
 			</div>
-
 			<div class="model-card">
 				<div class="model-preview">
-					<img src="fotosPlacas/modeloTripES.jpg" alt="Placa TripAdvisor Español"
-						style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block;">
+					<img src="fotosPlacas/modeloTripES.jpg" alt="Placa TripAdvisor Español">
 				</div>
 				<p class="model-platform">TripAdvisor</p>
 				<p class="model-name">Español 🇪🇸</p>
 			</div>
-
 			<div class="model-card">
 				<div class="model-preview">
-					<img src="fotosPlacas/modeloTripEN.jpg" alt="Placa TripAdvisor Inglés"
-						style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block;">
+					<img src="fotosPlacas/modeloTripEN.jpg" alt="Placa TripAdvisor Inglés">
 				</div>
 				<p class="model-platform">TripAdvisor</p>
 				<p class="model-name">English 🇬🇧</p>
 			</div>
-
 		</div>
 	</main>
 
+	<!-- ── PROOF ── -->
 	<main class="container" style="padding-top:0;">
 		<div class="proof-wrap reveal">
 			<div>
 				<span class="proof-label">Caso de éxito real</span>
 				<p class="proof-title">De 3 a 39 reseñas en un mes.</p>
-				<p class="proof-sub">Restaurante en Ronda, Málaga. Tras instalar el Pack Premium en Abril, el
-					volumen de reseñas se disparó y la posición en TripAdvisor subió del 68º al 42º en menos de 30
-					días.</p>
+				<p class="proof-sub">Restaurante en Ronda, Málaga. Tras instalar el Pack Premium en Abril, el volumen de
+					reseñas se disparó y la posición en TripAdvisor subió del 68º al 42º en menos de 30 días.</p>
 			</div>
 			<div>
 				<div class="chart-box">
@@ -1447,26 +1316,19 @@
 						<div class="mb" style="height:8%"></div>
 						<div class="mb" style="height:15%"></div>
 						<div class="mb" style="height:8%"></div>
-
 						<div class="mb hi" style="height:100%">
-							<span class="mb-tag"
-								style="display: flex; align-items: center; gap: 4px; justify-content: center;">
-								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-									<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-									<polyline points="17 6 23 6 23 12"></polyline>
-								</svg>
-								x13 reseñas
-							</span>
+							<span class="mb-tag">x13 reseñas</span>
 						</div>
 					</div>
 					<div class="chart-months">
-						<span class="cm">Nov</span><span class="cm">Dic</span>
-						<span class="cm">En</span><span class="cm">Feb</span>
-						<span class="cm">Mar</span><span class="cm hi">Abr ✦</span>
+						<span class="cm">Nov</span>
+						<span class="cm">Dic</span>
+						<span class="cm">En</span>
+						<span class="cm">Feb</span>
+						<span class="cm">Mar</span>
+						<span class="cm hi">Abr ✦</span>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</main>
@@ -1486,13 +1348,12 @@
 					<li>Español o Inglés</li>
 					<li>Chip NFC de por vida</li>
 				</ul>
-				<a href="https://wa.me/34636798417?text=Hola%20Jaime,%20quiero%20el%20Pack%20Premium%20(4%20placas%20+%20soporte)%20para%20mi%20local."
+				<a href="https://wa.me/34636798417?text=Hola%20Jaime%2C%20me%20interesa%20el%20Pack%20B%C3%A1sico%20de%201%20placa%20NFC.%20%C2%BFPuedes%20decirme%20c%C3%B3mo%20funciona%20el%20proceso%20de%20pedido%3F"
 					target="_blank" class="price-cta">Pedir por WhatsApp</a>
-
 			</div>
 			<div class="price-card featured reveal">
 				<span class="price-badge">⭐ Más vendido</span>
-				<p class="price-name">Pack Premium Barra</p>
+				<p class="price-name">Pack Premium</p>
 				<p class="price-amount">40€</p>
 				<p class="price-note">La opción más completa para tu local.</p>
 				<ul class="price-includes">
@@ -1502,7 +1363,7 @@
 					<li>Soporte organizador de regalo</li>
 					<li>Cubre locales y turistas</li>
 				</ul>
-				<a href="https://wa.me/34636798417?text=Hola%20Jaime,%20quiero%20el%20Pack%20Premium%20(4%20placas%20+%20soporte)%20para%20mi%20local."
+				<a href="https://wa.me/34636798417?text=Hola%20Jaime%2C%20me%20interesa%20el%20Pack%20Premium%20de%204%20placas%20NFC.%20%C2%BFPuedes%20decirme%20c%C3%B3mo%20funciona%20el%20proceso%20de%20pedido%3F"
 					target="_blank" class="price-cta">Pedir por WhatsApp</a>
 			</div>
 			<div class="price-card reveal">
@@ -1515,7 +1376,7 @@
 					<li>Google y/o TripAdvisor</li>
 					<li>Chip NFC de por vida</li>
 				</ul>
-				<a href="https://wa.me/34636798417?text=Hola%20Jaime,%20quiero%20el%20Pack%20Premium%20(4%20placas%20+%20soporte)%20para%20mi%20local."
+				<a href="https://wa.me/34636798417?text=Hola%20Jaime%2C%20me%20interesa%20el%20Pack%20D%C3%BAo%20de%202%20placas%20NFC.%20%C2%BFPuedes%20decirme%20c%C3%B3mo%20funciona%20el%20proceso%20de%20pedido%3F"
 					target="_blank" class="price-cta">Pedir por WhatsApp</a>
 			</div>
 		</div>
@@ -1604,7 +1465,7 @@
 			<span class="section-label">¿Listo para empezar?</span>
 			<h2>Tu próxima reseña de 5 estrellas<br>está a un toque.</h2>
 			<p>Sin suscripciones, sin contratos. Escríbeme por WhatsApp y en 48h tienes las placas en tu local.</p>
-			<a href="https://wa.me/34636798417?text=Hola%20Jaime,%20quiero%20el%20Pack%20Premium%20(4%20placas%20+%20soporte)%20para%20mi%20local."
+			<a href="https://wa.me/34636798417?text=Hola%20Jaime%2C%20quiero%20informaci%C3%B3n%20sobre%20las%20placas%20NFC%20para%20mi%20restaurante."
 				target="_blank" class="btn">
 				Pedir mis placas por WhatsApp
 			</a>
@@ -1612,7 +1473,6 @@
 				<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 				</svg>
-
 				Trato directo y personalizado · Envío en 48-72h
 			</p>
 		</div>
@@ -1628,7 +1488,6 @@
 		<img src="" alt="" id="lb-img">
 	</div>
 
-	<!-- FAQ + Lightbox inline (no depende de main.js) -->
 	<script>
 		function toggleFaq(btn) {
 			const item = btn.parentElement;
@@ -1643,17 +1502,18 @@
 				ans.style.maxHeight = ans.scrollHeight + 'px';
 			}
 		}
+
 		function openLb(cell) {
 			const img = cell.querySelector('img');
 			if (!img) return;
 			document.getElementById('lb-img').src = img.src;
 			document.getElementById('lightbox').classList.add('open');
 		}
+
 		function closeLb() { document.getElementById('lightbox').classList.remove('open'); }
 		document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 	</script>
 
-	<!-- main.js externo — gestiona reveal + hamburger, idéntico al tuyo -->
 	<script src="js/main.js"></script>
 </body>
 
