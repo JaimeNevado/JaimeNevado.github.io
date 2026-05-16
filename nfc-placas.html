@@ -1089,100 +1089,121 @@
 			}
 
 			.hero-gallery {
-				grid-template-columns: 1fr 1.2fr;
+				.hero-gallery {
+					grid-template-columns: 1fr 1.2fr;
+					max-width: 100%;
+					margin-top: 32px;
+				}
+
+				.hero-gallery .hg-item:last-child {
+					display: none;
+				}
+
+				.hero-gallery .hg-item {
+					aspect-ratio: 4/5;
+				}
+
+				.hero-gallery .hg-item.tall {
+					aspect-ratio: 4/5;
+				}
+
+				.scroll-indicator {
+					position: static;
+					transform: none;
+					margin-top: 32px;
+				}
+
+				/* Grids → 1 col */
+				.steps-grid {
+					grid-template-columns: 1fr;
+					gap: 12px;
+				}
+
+				.pricing-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.t-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.proof-wrap {
+					grid-template-columns: 1fr;
+					padding: 36px 26px;
+					gap: 28px;
+				}
+
+				.features-row {
+					grid-template-columns: 1fr 1fr;
+				}
+
+				.models-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+
+				/* Gallery */
+				.gallery-grid {
+					display: flex;
+					flex-wrap: wrap;
+					gap: 8px;
+				}
+
+				.gc {
+					width: calc(50% - 4px);
+					aspect-ratio: 1;
+					border-radius: 16px;
+					grid-row: unset;
+				}
+
+				.gc1 {
+					width: 100%;
+					aspect-ratio: 16/9;
+				}
+
+				.gc2 {
+					width: calc(50% - 4px);
+					aspect-ratio: 1;
+				}
+
+				/* Container */
+				.container {
+					padding: 56px 5%;
+				}
+
+				.section-title {
+					margin-bottom: 28px;
+				}
+
+				/* CTA */
+				.cta-block {
+					padding: 48px 22px;
+					margin-bottom: 60px;
+					border-radius: 22px;
+				}
+
+				/* Pricing */
+				.price-card {
+					border-radius: 22px;
+				}
 			}
 
-			.hero-gallery .hg-item:last-child {
-				display: none;
-			}
+			@media (max-width: 480px) {
+				.features-row {
+					grid-template-columns: 1fr;
+				}
 
-			/* Grids → 1 col */
-			.steps-grid {
-				grid-template-columns: 1fr;
-				gap: 12px;
-			}
+				.hero-cta {
+					flex-direction: column;
+					align-items: center;
+				}
 
-			.pricing-grid {
-				grid-template-columns: 1fr;
+				.hero-cta .btn,
+				.hero-cta .btn-outline {
+					width: 100%;
+					max-width: 300px;
+					text-align: center;
+				}
 			}
-
-			.t-grid {
-				grid-template-columns: 1fr;
-			}
-
-			.proof-wrap {
-				grid-template-columns: 1fr;
-				padding: 36px 26px;
-				gap: 28px;
-			}
-
-			.features-row {
-				grid-template-columns: 1fr 1fr;
-			}
-
-			.models-grid {
-				grid-template-columns: 1fr 1fr;
-			}
-
-			/* Gallery */
-			.gallery-grid {
-				display: grid;
-				grid-template-columns: repeat(12, 1fr);
-				grid-template-rows: 340px auto;
-				gap: 10px;
-			}
-
-
-			.gc {
-				width: calc(50% - 4px);
-				aspect-ratio: 1 !important;
-				border-radius: 16px;
-			}
-
-			.gc1 {
-				width: 100%;
-				aspect-ratio: 16/9 !important;
-			}
-
-			/* Container */
-			.container {
-				padding: 56px 5%;
-			}
-
-			.section-title {
-				margin-bottom: 28px;
-			}
-
-			/* CTA */
-			.cta-block {
-				padding: 48px 22px;
-				margin-bottom: 60px;
-				border-radius: 22px;
-			}
-
-			/* Pricing */
-			.price-card {
-				border-radius: 22px;
-			}
-		}
-
-		@media (max-width: 480px) {
-			.features-row {
-				grid-template-columns: 1fr;
-			}
-
-			.hero-cta {
-				flex-direction: column;
-				align-items: center;
-			}
-
-			.hero-cta .btn,
-			.hero-cta .btn-outline {
-				width: 100%;
-				max-width: 300px;
-				text-align: center;
-			}
-		}
 	</style>
 </head>
 
@@ -1255,7 +1276,7 @@
 
 			</div>
 		</div>
-
+		<br>
 		<div class="scroll-indicator">
 			<span>Saber más</span>
 			<div class="arrow-scroll"></div>
