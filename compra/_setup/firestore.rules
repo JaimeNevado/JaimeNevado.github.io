@@ -1,0 +1,26 @@
+rules_version = '2';
+
+// Reglas de Firestore para nevadox.com/compra
+// Pégalas en Firebase Console → Firestore Database → Reglas, cambiando los dos emails.
+// OJO: el repo es público. Pon los emails reales solo en la consola, no en este archivo.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function esDeCasa() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in [
+          'TU_EMAIL@gmail.com',
+          'EMAIL_DE_TU_NOVIA@gmail.com'
+        ];
+    }
+
+    // listas/casa/items/{id} y listas/casa/productos/{id}
+    match /listas/{lista}/{document=**} {
+      allow read, write: if esDeCasa();
+    }
+
+    // Todo lo demás queda cerrado por defecto.
+  }
+}
