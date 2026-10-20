@@ -223,6 +223,15 @@
 				const dataEventos = await resEventos.json();
 				const listaCarpetas = dataSubcalendarios.subcalendars;
 
+				// En Teamup las clases acaban a "y media", pero en realidad terminan a "y cuarto"
+				dataEventos.events.forEach(evento => {
+					const fin = new Date(evento.end_dt);
+					if (fin.getMinutes() === 30) {
+						fin.setMinutes(15);
+						evento.end_dt = fin.toISOString();
+					}
+				});
+
 				let eventosValidos = dataEventos.events.filter(evento => {
 					const finEvento = new Date(evento.end_dt);
 					if (finEvento <= hoy) return false;
